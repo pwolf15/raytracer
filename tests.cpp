@@ -1,6 +1,8 @@
 #include "CppUTest/CommandLineTestRunner.h"
 
 #include "Tuple.h"
+#include "Point.h"
+#include "Vector.h"
 
 TEST_GROUP(Tuple)
 {
@@ -22,6 +24,36 @@ TEST(Tuple, Tuple1)
   a.w = 0.0;
   CHECK(a.isVector());
 }
+
+TEST_GROUP(Point)
+{
+
+};
+
+TEST(Point, Point1)
+{
+  Point p(4, -4, 3);
+  double t = 1e-6;
+  DOUBLES_EQUAL(4, p.x, t);
+  DOUBLES_EQUAL(-4, p.y, t);
+  DOUBLES_EQUAL(3, p.z, t);
+  DOUBLES_EQUAL(1, p.w, t);
+};
+
+TEST_GROUP(Vector)
+{
+
+};
+
+TEST(Vector, Vector1)
+{
+  Vector v(4, -4, 3);
+  double t = 1e-6;
+  DOUBLES_EQUAL(4, v.x, t);
+  DOUBLES_EQUAL(-4, v.y, t);
+  DOUBLES_EQUAL(3, v.z, t);
+  DOUBLES_EQUAL(0, v.w, t);
+};
 
 int main(int ac, char** av)
 {
