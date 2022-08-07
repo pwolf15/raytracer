@@ -36,6 +36,12 @@ public:
     return !(*this == rhs);
   }
 
+  Tuple operator-() const
+  {
+    Tuple t(-this->x, -this->y, -this->z, -this->w);
+    return t;
+  }
+
   friend Tuple operator+(Tuple lhs,        // passing lhs by value helps optimize chained a+b+c
                       const Tuple& rhs) // otherwise, both parameters may be const references
   {

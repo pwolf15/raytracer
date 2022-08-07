@@ -49,6 +49,19 @@ TEST(Tuple, Tuple1)
   DOUBLES_EQUAL(-2, p4.x, t);
   DOUBLES_EQUAL(-4, p4.y, t);
   DOUBLES_EQUAL(-6, p4.z, t);
+
+  Vector v2(3, 2, 1);
+  Vector v3 = v2 - v1;
+  DOUBLES_EQUAL(-2, v3.x, t);
+  DOUBLES_EQUAL(-4, v3.y, t);
+  DOUBLES_EQUAL(-6, v3.z, t);
+
+  Tuple t1(1, -2, 3, -4);
+  Tuple t2 = -t1;
+  DOUBLES_EQUAL(-1, t2.x, t);
+  DOUBLES_EQUAL(2, t2.y, t);
+  DOUBLES_EQUAL(-3, t2.z, t);
+  DOUBLES_EQUAL(4, t2.w, t);
 }
 
 TEST_GROUP(Point)
