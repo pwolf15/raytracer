@@ -23,6 +23,19 @@ TEST(Tuple, Tuple1)
   // vector
   a.w = 0.0;
   CHECK(a.isVector());
+
+  // equality
+  Tuple b(1,2,3,4),c(1,2,3,4);
+  CHECK(b == c);
+  c.w = -4;
+  CHECK(b != c);
+
+  // addition
+  Tuple d = b + c;
+  DOUBLES_EQUAL(2, d.x, t);
+  DOUBLES_EQUAL(4, d.y, t);
+  DOUBLES_EQUAL(6, d.z, t);
+  DOUBLES_EQUAL(0, d.w, t);
 }
 
 TEST_GROUP(Point)
