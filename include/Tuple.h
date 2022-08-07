@@ -56,6 +56,18 @@ public:
     return result;
   }
 
+  friend Tuple operator*(Tuple lhs, float s)
+  {
+    Tuple result(lhs.x * s, lhs.y * s, lhs.z * s, lhs.w * s);
+    return result;
+  }
+
+  friend Tuple operator/(Tuple lhs, float s)
+  {
+    Tuple result(lhs.x / s, lhs.y / s, lhs.z / s, lhs.w / s);
+    return result;
+  }
+
   float x, y, z, w;
 
 };
