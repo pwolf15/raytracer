@@ -121,6 +121,22 @@ TEST(Vector, Vector1)
   DOUBLES_EQUAL(1, v3.magnitude(), t);
   DOUBLES_EQUAL(sqrt(14), v4.magnitude(), t);
   DOUBLES_EQUAL(sqrt(14), v5.magnitude(), t);
+
+  // normalize
+  Vector v6(4, 0, 0);
+  Vector v7 = v6.normalize();
+  DOUBLES_EQUAL(1, v7.x, t);
+  DOUBLES_EQUAL(0, v7.y, t);
+  DOUBLES_EQUAL(0, v7.z, t);
+  DOUBLES_EQUAL(0, v7.w, t);
+
+  Vector v8(1,2,3);
+  Vector v9 = v8.normalize();
+  DOUBLES_EQUAL(1/sqrt(14), v9.x, t);
+  DOUBLES_EQUAL(2/sqrt(14), v9.y, t);
+  DOUBLES_EQUAL(3/sqrt(14), v9.z, t);
+  DOUBLES_EQUAL(0, v9.w, t);
+
 };
 
 int main(int ac, char** av)
