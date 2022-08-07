@@ -36,6 +36,19 @@ TEST(Tuple, Tuple1)
   DOUBLES_EQUAL(4, d.y, t);
   DOUBLES_EQUAL(6, d.z, t);
   DOUBLES_EQUAL(0, d.w, t);
+
+  // subtraction
+  Point p1(3, 2, 1), p2(5, 6, 7);
+  Point p3 = p1 - p2;
+  DOUBLES_EQUAL(-2, p3.x, t);
+  DOUBLES_EQUAL(-4, p3.y, t);
+  DOUBLES_EQUAL(-6, p3.z, t);
+
+  Vector v1(5,6,7);
+  Point p4 = p1 - v1;
+  DOUBLES_EQUAL(-2, p4.x, t);
+  DOUBLES_EQUAL(-4, p4.y, t);
+  DOUBLES_EQUAL(-6, p4.z, t);
 }
 
 TEST_GROUP(Point)

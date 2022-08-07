@@ -6,6 +6,8 @@
 class Point: public Tuple
 {
 public:
+  Point()=default;
+  Point(const Tuple& a) : Tuple(a) {}
   Point(float x, float y, float z): Tuple(x, y, z, 1.0)
   {}
 };

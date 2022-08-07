@@ -43,6 +43,13 @@ public:
     return result;
   }
 
+  friend Tuple operator-(Tuple lhs,        // passing lhs by value helps optimize chained a+b+c
+                      const Tuple& rhs) // otherwise, both parameters may be const references
+  {
+    Tuple result(lhs.x - rhs.x, lhs.y - rhs.y, lhs.z - rhs.z, lhs.w - rhs.w);
+    return result;
+  }
+
   float x, y, z, w;
 
 };
