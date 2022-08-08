@@ -137,6 +137,20 @@ TEST(Vector, Vector1)
   DOUBLES_EQUAL(3/sqrt(14), v9.z, t);
   DOUBLES_EQUAL(0, v9.w, t);
 
+  // dot product
+  Vector v10(1,2,3),v11(2,3,4);
+  DOUBLES_EQUAL(20, v10.dot(v11), t);
+
+  // cross product
+  Vector v12 = v10.cross(v11);
+  DOUBLES_EQUAL(-1, v12.x, t);
+  DOUBLES_EQUAL(2, v12.y, t);
+  DOUBLES_EQUAL(-1, v12.z, t);
+
+  Vector v13 = v11.cross(v10);
+  DOUBLES_EQUAL(1, v13.x, t);
+  DOUBLES_EQUAL(-2, v13.y, t);
+  DOUBLES_EQUAL(1, v13.z, t);
 };
 
 int main(int ac, char** av)

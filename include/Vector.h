@@ -23,9 +23,15 @@ public:
     Vector v(this->x/mag, this->y/mag,this->z/mag);
     return v;
   }
-  float dot() const
+  float dot(const Tuple& rhs) const
   {
-    return 0.0;
+    return this->x*rhs.x + this->y*rhs.y + this->z*rhs.z + this->w*rhs.w;
+  }
+  Vector cross(const Tuple& rhs) const
+  {
+    return Vector(this->y*rhs.z - this->z*rhs.y, 
+      this->z*rhs.x - this->x*rhs.z, 
+      this->x*rhs.y-this->y*rhs.x);
   }
 };
 
