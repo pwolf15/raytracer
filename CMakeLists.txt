@@ -6,4 +6,5 @@ include_directories(include)
 
 add_executable(main main.cpp)
 add_executable(tests tests.cpp)
+add_executable(cannon cannon.cpp)
 target_link_libraries(tests CppUTest)
