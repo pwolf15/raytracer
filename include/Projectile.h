@@ -7,6 +7,7 @@
 class Projectile 
 {
 public:
+  Projectile(Point position, Vector velocity): position(position), velocity(velocity) {}
   Point position;
   Vector velocity;
 
