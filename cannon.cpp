@@ -11,14 +11,15 @@ Projectile tick(Environment e, Projectile p)
 
 int main()
 {
-  std::cout << "Hello cannon!" << std::endl;
-  Projectile p(Point(0,1,0), Vector(1,1,0).normalize());
+  Projectile p(Point(0,1,0), Vector(5,5,0).normalize());
   Environment e(Vector(0, -0.1, 0), Vector(-0.01, 0, 0));
 
+  int tickNum = 0;
   while (p.position.y > 0)
   {
     p = tick(e, p);
-    std::cout << "Position: " << p.position.y << std::endl;
+    tickNum++;
+    std::cout << "Tick #" << tickNum << ": (" << p.position.x << "," << p.position.y << "," << p.position.z << ")" << std::endl;
   }
   return 0;
 }
