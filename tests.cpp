@@ -3,6 +3,7 @@
 #include "Tuple.h"
 #include "Point.h"
 #include "Vector.h"
+#include "Color.h"
 
 TEST_GROUP(Tuple)
 {
@@ -151,6 +152,21 @@ TEST(Vector, Vector1)
   DOUBLES_EQUAL(1, v13.x, t);
   DOUBLES_EQUAL(-2, v13.y, t);
   DOUBLES_EQUAL(1, v13.z, t);
+};
+
+TEST_GROUP(Color)
+{
+
+};
+
+TEST(Color, Color1)
+{
+  Color c(-0.5,0.4,1.7);
+  double t = 1e-6;
+  DOUBLES_EQUAL(-0.5, c.red(), t);
+  DOUBLES_EQUAL(0.4, c.green(), t);
+  DOUBLES_EQUAL(1.7, c.blue(), t);
+
 };
 
 int main(int ac, char** av)
