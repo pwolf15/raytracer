@@ -4,6 +4,7 @@
 #include "Point.h"
 #include "Vector.h"
 #include "Color.h"
+#include "Canvas.h"
 
 TEST_GROUP(Tuple)
 {
@@ -195,6 +196,39 @@ TEST(Color, Color1)
   DOUBLES_EQUAL(c9.red(), 0.9, t);
   DOUBLES_EQUAL(c9.green(), 0.2, t);
   DOUBLES_EQUAL(c9.blue(), 0.04, t);
+};
+
+TEST_GROUP(Canvas)
+{
+
+};
+
+TEST(Canvas, Canvas1)
+{
+  int w = 10, h = 20;
+  double t = 1e-6;
+
+  // constructor
+  Canvas c1(10, 20);
+  CHECK_EQUAL(w, c1.width);
+  CHECK_EQUAL(h, c1.height);
+
+  for (size_t i = 0; i < h; ++i)
+  {
+    for (size_t j = 0; j < w; ++j)
+    {
+      DOUBLES_EQUAL(0, c1.pixels[i*w+j].red(), t);
+      DOUBLES_EQUAL(0, c1.pixels[i*w+j].green(), t);
+      DOUBLES_EQUAL(0, c1.pixels[i*w+j].blue(), t);
+    }
+  }
+
+  // pixel write/access
+  c1.write_pixel(2, 3, Color{1, 0, 0});
+  Color col = c1.pixel_at(2, 3);
+  DOUBLES_EQUAL(1, col.red(), t);
+  DOUBLES_EQUAL(0, col.green(), t);
+  DOUBLES_EQUAL(0, col.blue(), t);
 };
 
 int main(int ac, char** av)
