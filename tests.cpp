@@ -167,6 +167,27 @@ TEST(Color, Color1)
   DOUBLES_EQUAL(0.4, c.green(), t);
   DOUBLES_EQUAL(1.7, c.blue(), t);
 
+  // addition
+  Color c1(0.9, 0.6, 0.75);
+  Color c2(0.7, 0.1, 0.25);
+  Color c3 = c1 + c2;
+  DOUBLES_EQUAL(c3.red(), 1.6, t);
+  DOUBLES_EQUAL(c3.green(), 0.7, t);
+  DOUBLES_EQUAL(c3.blue(), 1.0, t);
+
+  // subtraction
+  Color c4 = c1 - c2;
+  DOUBLES_EQUAL(c4.red(), 0.2, t);
+  DOUBLES_EQUAL(c4.green(), 0.5, t);
+  DOUBLES_EQUAL(c4.blue(), 0.5, t);
+
+  // scalar multiplication
+  Color c5(0.2, 0.3, 0.4);
+  Color c6 = c5 * 2;
+  DOUBLES_EQUAL(c6.red(), 0.4, t);
+  DOUBLES_EQUAL(c6.green(), 0.6, t);
+  DOUBLES_EQUAL(c6.blue(), 0.8, t);
+
 };
 
 int main(int ac, char** av)
