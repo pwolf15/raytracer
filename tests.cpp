@@ -188,6 +188,13 @@ TEST(Color, Color1)
   DOUBLES_EQUAL(c6.green(), 0.6, t);
   DOUBLES_EQUAL(c6.blue(), 0.8, t);
 
+  // multiplication (Hadamard product)
+  Color c7(1, 0.2, 0.4);
+  Color c8(0.9, 1, 0.1);
+  Color c9 = c7 * c8;
+  DOUBLES_EQUAL(c9.red(), 0.9, t);
+  DOUBLES_EQUAL(c9.green(), 0.2, t);
+  DOUBLES_EQUAL(c9.blue(), 0.04, t);
 };
 
 int main(int ac, char** av)

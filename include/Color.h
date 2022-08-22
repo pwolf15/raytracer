@@ -37,6 +37,15 @@ public:
     Color result(lhs.x * s, lhs.y * s, lhs.z * s);
     return result;
   }
+
+
+  friend Color operator*(Color lhs,        // passing lhs by value helps optimize chained a+b+c
+                      const Color& rhs) // otherwise, both parameters may be const references
+  {
+    Color result(lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z);
+    return result;
+  }
+
 };
 
 #endif // COLOR_H
