@@ -6,6 +6,9 @@
 #include "Color.h"
 #include "Canvas.h"
 
+#include <fstream>
+#include <iostream>
+
 TEST_GROUP(Tuple)
 {
 };
@@ -229,6 +232,35 @@ TEST(Canvas, Canvas1)
   DOUBLES_EQUAL(1, col.red(), t);
   DOUBLES_EQUAL(0, col.green(), t);
   DOUBLES_EQUAL(0, col.blue(), t);
+
+  // canvas
+  Canvas c2(5, 3);
+  Color col1(1.5, 0, 0), col2(0, 0.5, 0), col3(-0.5, 0, 1);
+  c2.write_pixel(0, 0, col1);
+  c2.write_pixel(2, 1, col2);
+  c2.write_pixel(4, 2, col3);
+  std::string ppm = c2.canvas_to_ppm();
+  std::cout << "PPM" << "\n" << ppm << std::endl;
+  CHECK('\n' == ppm[ppm.length() - 1]);
+  
+  Canvas c3(10, 2);
+  Color col4(1, 0.8, 0.6);
+  for (int i = 0; i < 2; ++i)
+  {
+    for (int j = 0; j < 10; ++j)
+    {
+      c3.write_pixel(j, i, col4);
+    }
+  }
+
+  ppm = c3.canvas_to_ppm();
+  std::cout << "PPM2" << "\n" << ppm << std::endl;
+
+  std::ofstream f("test.ppm");
+  f << ppm;
+  f.close();
+
+  CHECK('\n' == ppm[ppm.length() - 1]);
 };
 
 int main(int ac, char** av)
