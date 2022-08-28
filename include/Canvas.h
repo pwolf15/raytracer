@@ -15,6 +15,8 @@ public:
 
   void write_pixel(int x, int y, Color col)
   {
+    if (y < 0 || y > height || x < 0 || x > width) return;
+    
     pixels[y*width+x] = col;
   }
 
