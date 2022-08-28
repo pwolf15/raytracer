@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include "Color.h"
 #include "Canvas.h"
+#include "Matrix.h"
 
 #include <fstream>
 #include <iostream>
@@ -263,6 +264,22 @@ TEST(Canvas, Canvas1)
 
 
   CHECK('\n' == ppm[ppm.length() - 1]);
+};
+
+TEST_GROUP(Matrix)
+{
+
+};
+
+TEST(Matrix, Matrix1)
+{
+  Matrix m1(std::vector<std::vector<float>>{
+    {
+      {1, 2, 3},
+      {4, 5, 6},
+      {7, 8, 9}
+    }
+  });
 };
 
 int main(int ac, char** av)
