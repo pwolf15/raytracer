@@ -38,40 +38,42 @@ public:
         Color c = pixels[i*width+j];
         int r = round(c.red() * 255) > 255 ? 255 : (round(255 * c.red()) < 0 ? 0 : round(c.red() * 255));
         std::string seg1 = std::to_string(r) + " ";
-        if (line_count + 1 + seg1.length() > 70)
-        {
-          line_count = 0;
-          ppm_file += "\n";
-        }
-        else
-        {
-          ppm_file += seg1;
-          line_count += seg1.length();
-        }
+        // if (line_count + 1 + seg1.length() > 70)
+        // {
+        //   line_count = 0;
+        //   ppm_file += "\n";
+        // }
+        // else
+        // {
+        //   ppm_file += seg1;
+        //   line_count += seg1.length();
+        // }
         int g = round(c.green() * 255) > 255 ? 255 : (round(255 * c.red()) < 0 ? 0 : round(c.green() * 255));
         std::string seg2 = std::to_string(g) + " ";
-        if (line_count + 1 + seg2.length() > 70)
-        {
-          line_count = 0;
-          ppm_file += "\n";
-        }
-        else
-        {
-          ppm_file += seg2;
-          line_count += seg2.length();
-        }
+        // if (line_count + 1 + seg2.length() > 70)
+        // {
+        //   line_count = 0;
+        //   ppm_file += "\n";
+        // }
+        // else
+        // {
+        //   ppm_file += seg2;
+        //   line_count += seg2.length();
+        // }
         int b = round(c.blue() * 255) > 255 ? 255 : (round(255 * c.blue()) < 0 ? 0 : round(c.blue() * 255));
         std::string seg3 = std::to_string(b) + " ";
-        if (line_count + 1 + seg3.length() > 70)
-        {
-          line_count = 0;
-          ppm_file += "\n";
-        }
-        else
-        {
-          ppm_file += seg3;
-          line_count += seg3.length();
-        }
+        // if (line_count + 1 + seg3.length() > 70)
+        // {
+        //   line_count = 0;
+        //   ppm_file += "\n";
+        // }
+        // else
+        // {
+        //   ppm_file += seg3;
+        //   line_count += seg3.length();
+        // }
+
+        ppm_file += seg1 + "\n" + seg2 + "\n" + seg3 + "\n";
       }
 
       line_count = 0;

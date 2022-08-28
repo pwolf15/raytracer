@@ -242,23 +242,25 @@ TEST(Canvas, Canvas1)
   std::string ppm = c2.canvas_to_ppm();
   std::cout << "PPM" << "\n" << ppm << std::endl;
   CHECK('\n' == ppm[ppm.length() - 1]);
-  
-  Canvas c3(10, 2);
-  Color col4(1, 0.8, 0.6);
-  for (int i = 0; i < 2; ++i)
+
+  Canvas c3(512, 512);
+  Color col4(1, 1, 0);
+  for (int i = 0; i < 512; ++i)
   {
-    for (int j = 0; j < 10; ++j)
+    for (int j = 0; j < 512; ++j)
     {
       c3.write_pixel(j, i, col4);
     }
   }
 
   ppm = c3.canvas_to_ppm();
-  std::cout << "PPM2" << "\n" << ppm << std::endl;
+  // std::cout << "PPM2" << "\n" << ppm << std::endl;
 
   std::ofstream f("test.ppm");
   f << ppm;
   f.close();
+
+
 
   CHECK('\n' == ppm[ppm.length() - 1]);
 };
