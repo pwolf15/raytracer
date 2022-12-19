@@ -275,11 +275,21 @@ TEST(Matrix, Matrix1)
 {
   Matrix m1(std::vector<std::vector<float>>{
     {
-      {1, 2, 3},
-      {4, 5, 6},
-      {7, 8, 9}
+      {1, 2, 3, 4},
+      { 5.5, 6.5, 7.5, 8.5},
+      { 9, 10, 11, 12},
+      { 13.5, 14.5, 15.5, 16.5}
     }
   });
+
+  double t = 0.01;
+  DOUBLES_EQUAL(1, m1(0, 0), t);
+  DOUBLES_EQUAL(4, m1(0, 3), t);
+  DOUBLES_EQUAL(5.5, m1(1, 0), t);
+  DOUBLES_EQUAL(7.5, m1(1, 2), t);
+  DOUBLES_EQUAL(11, m1(2, 2), t);
+  DOUBLES_EQUAL(13.5, m1(3, 0), t);
+  DOUBLES_EQUAL(15.5, m1(3, 2), 15.5);
 };
 
 int main(int ac, char** av)

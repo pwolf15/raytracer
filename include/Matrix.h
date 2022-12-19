@@ -15,6 +15,11 @@ public:
     }
   }
 
+  double operator () (int i, int j) 
+  {
+    return m[i][j];
+  }
+
 private:
   std::vector<std::vector<float>> m;
 };
