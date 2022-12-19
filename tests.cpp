@@ -290,6 +290,26 @@ TEST(Matrix, Matrix1)
   DOUBLES_EQUAL(11, m1(2, 2), t);
   DOUBLES_EQUAL(13.5, m1(3, 0), t);
   DOUBLES_EQUAL(15.5, m1(3, 2), 15.5);
+
+  Matrix m2({
+    {-3, 5},
+    {1, -2}
+  });
+
+  DOUBLES_EQUAL(-3, m2(0, 0), t);
+  DOUBLES_EQUAL(5, m2(0, 1), t);
+  DOUBLES_EQUAL(1, m2(1,0), t);
+  DOUBLES_EQUAL(-2, m2(1,1), t);
+
+  Matrix m3({
+    { -3,5,0 },
+    { 1,-2,-7 },
+    { 0, 1, 1 }
+  });
+
+  DOUBLES_EQUAL(-3, m3(0,0), t);
+  DOUBLES_EQUAL(-2, m3(1,1), t);
+  DOUBLES_EQUAL(1, m3(2,2), t);
 };
 
 int main(int ac, char** av)
