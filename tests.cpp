@@ -312,6 +312,32 @@ TEST(Matrix, Matrix1)
   DOUBLES_EQUAL(1, m3(2,2), t);
 };
 
+TEST(Matrix, Equality)
+{
+  Matrix a({
+    {1, 2, 3, 4},
+    {5, 6, 7, 8},
+    {9, 8, 7, 6},
+    {5, 4, 3, 2}
+  });
+  Matrix b({
+    {1, 2, 3, 4},
+    {5, 6, 7, 8},
+    {9, 8, 7, 6},
+    {5, 4, 3, 2}
+  });
+  CHECK(a == b);
+
+  Matrix c({
+    { 2, 3, 4, 5},
+    { 6, 7, 8, 9},
+    { 8, 7, 6, 5},
+    { 4, 3, 2, 1}
+  });
+
+  CHECK (a != c);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
