@@ -338,6 +338,35 @@ TEST(Matrix, Equality)
   CHECK (a != c);
 }
 
+TEST(Matrix, Multiply)
+{
+  Matrix a({
+    {1, 2, 3, 4},
+    {5, 6, 7, 8},
+    {9, 8, 7, 6},
+    {5, 4, 3, 2}
+  });
+
+  Matrix b({
+    {-2, 1, 2, 3},
+    {3, 2, 1, -1},
+    {4,3,6,5},
+    {1,2,7,8}
+  });
+
+  Matrix c = a * b;
+  Matrix exp_c({
+    { 20, 22, 50, 48 },
+    { 44, 54, 114, 108 },
+    { 40, 58, 110, 102 },
+    { 16, 26, 46, 42 }
+  });
+
+  std::cout << c(2, 2) << std::endl;
+
+  CHECK(c == exp_c);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);

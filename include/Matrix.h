@@ -55,6 +55,26 @@ public:
   {
     return !this->operator==(b);
   }
+
+  Matrix operator* (const Matrix& b) const
+  {
+    std::vector<std::vector<float>> result(b.m.size());
+    for (size_t i = 0; i < m.size(); ++i)
+    {
+      result[i].resize(b.m[0].size());
+      for (size_t j = 0; j < m[0].size(); ++j)
+      {
+        float value = 0;
+        for (size_t k = 0; k < m.size(); ++k)
+        {
+          value += (*this)(i,k) * b(k,j);
+        }
+        result[i][j] = value;
+      }
+    }
+    Matrix c(result);
+    return c;
+  }
   
 private:
   std::vector<std::vector<float>> m;
