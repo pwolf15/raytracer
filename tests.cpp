@@ -426,6 +426,16 @@ TEST(Matrix, Transpose)
   CHECK(a_T == a_T_exp);
 }
 
+TEST(Matrix, Determinant)
+{
+  Matrix a({
+    {1,5},
+    {-3,2}
+  });
+  double t = 0.1;
+  DOUBLES_EQUAL(17, a.determinant(), t);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);

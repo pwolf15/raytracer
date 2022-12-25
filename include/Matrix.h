@@ -107,6 +107,12 @@ public:
     Matrix t(t_data);
     return t;
   }
+
+  float determinant() const
+  {
+    const auto data = (*this).m;
+    return data[0][0]*data[1][1] - data[0][1]*data[1][0];
+  }
   
 private:
   std::vector<std::vector<float>> m;
