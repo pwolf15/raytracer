@@ -91,6 +91,22 @@ public:
     Tuple t(result[0], result[1], result[2], result[3]);
     return t;
   }
+
+  Matrix transpose() const
+  {
+    std::vector<std::vector<float>> t_data((*this).m.size());
+
+    for (int i = 0; i < (*this).m.size(); ++i)
+    {
+      t_data[i].resize((*this).m[i].size());
+      for (int j = 0; j < (*this).m[i].size(); ++j)
+      {
+        t_data[i][j] = (*this).m[j][i];
+      }
+    }
+    Matrix t(t_data);
+    return t;
+  }
   
 private:
   std::vector<std::vector<float>> m;

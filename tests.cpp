@@ -404,6 +404,24 @@ TEST(Matrix, Identity)
   CHECK(b == a);
 }
 
+TEST(Matrix, Transpose)
+{
+  Matrix a({
+    {0,9,3,0},
+    {9,8,0,8},
+    {1,8,5,3},
+    {0,0,5,0}
+  });
+  Matrix a_T = a.transpose();
+  Matrix a_T_exp({
+    {0,9,1,0},
+    {9,8,8,0},
+    {3,0,5,5},
+    {0,8,3,0}
+  });
+  CHECK(a_T == a_T_exp);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
