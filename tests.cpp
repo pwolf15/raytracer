@@ -402,6 +402,10 @@ TEST(Matrix, Identity)
   });
   Matrix b = a * i;
   CHECK(b == a);
+
+  // transpose
+  Matrix i_T = i.transpose();
+  CHECK(i_T == i);
 }
 
 TEST(Matrix, Transpose)
