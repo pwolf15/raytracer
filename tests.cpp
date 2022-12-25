@@ -386,6 +386,24 @@ TEST(Matrix, Multiply2)
   CHECK(c == c_exp);
 }
 
+TEST(Matrix, Identity)
+{
+  Matrix a({
+    {0,1,2,4},
+    {1,2,4,8},
+    {2,4,8,16},
+    {4,8,16,32}
+  });
+  Matrix i({
+    {1,0,0,0},
+    {0,1,0,0},
+    {0,0,1,0},
+    {0,0,0,1}
+  });
+  Matrix b = a * i;
+  CHECK(b == a);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
