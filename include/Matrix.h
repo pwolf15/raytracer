@@ -75,6 +75,22 @@ public:
     Matrix c(result);
     return c;
   }
+
+  Tuple operator* (const Tuple& b) const
+  {
+    std::vector<float> result((*this).m.size());
+    for (int i = 0; i < (*this).m.size(); ++i)
+    {
+      result[i] = 0;
+      result[i] += (*this).m[i][0] * b.x;
+      result[i] += (*this).m[i][1] * b.y;
+      result[i] += (*this).m[i][2] * b.z;
+      result[i] += (*this).m[i][3] * b.w;
+    }
+
+    Tuple t(result[0], result[1], result[2], result[3]);
+    return t;
+  }
   
 private:
   std::vector<std::vector<float>> m;

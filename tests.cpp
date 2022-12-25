@@ -367,6 +367,25 @@ TEST(Matrix, Multiply)
   CHECK(c == exp_c);
 }
 
+TEST(Matrix, Multiply2)
+{
+  Matrix a({
+    {1,2,3,4},
+    {2,4,4,2},
+    {8,6,4,1},
+    {0,0,0,1}
+  });
+
+  Tuple b(1,2,3,1);
+
+  Tuple c = a*b;
+
+  Tuple c_exp(18,24,33,1);
+  
+  std::cout << c.z << std::endl;
+  CHECK(c == c_exp);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
