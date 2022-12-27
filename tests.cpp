@@ -434,6 +434,21 @@ TEST(Matrix, Determinant)
   });
   double t = 0.1;
   DOUBLES_EQUAL(17, a.determinant(), t);
+
+  Matrix b({
+    {1,2,6},
+    {-5,8,-4},
+    {2,6,4}
+  });
+  DOUBLES_EQUAL(-196, b.determinant(), t);
+
+  Matrix c({
+    {-2,8,3,5},
+    {-3,1,7,3},
+    {1,2,-9,6},
+    {-6,7,7,-9}
+  });
+  DOUBLES_EQUAL(-4071, c.determinant(), t);
 }
 
 TEST(Matrix, Submatrix)

@@ -108,10 +108,37 @@ public:
     return t;
   }
 
-  float determinant() const
+  float determinant_2x2() const
   {
     const auto data = (*this).m;
     return data[0][0]*data[1][1] - data[0][1]*data[1][0];
+  }
+
+  float determinant() const
+  {
+    const auto data = (*this).m;
+    const int rows = data.size();
+    const int cols = rows;
+
+    if (rows == 2)
+    {
+      return determinant_2x2();
+    }
+    else
+    {
+      float det = 0;
+      for (int i = 0; i < cols; ++i)
+      {
+        const int row = 0;
+        const int col = i;
+
+        const auto cof = this->cofactor(row, col);
+        std::cout << "Cofactor: " << cof << std::endl;
+        det += data[row][col] * cof;
+      }
+
+      return det;
+    }
   }
   
   Matrix submatrix(int row, int col) const
