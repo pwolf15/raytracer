@@ -465,6 +465,16 @@ TEST(Matrix, Submatrix)
   CHECK(b2_exp == b2);
 }
 
+TEST(Matrix, Minor)
+{
+  Matrix a({
+    {3,5,0},
+    {2,-1,-7},
+    {6,-1,5}
+  });
+  double t = 0.1;
+  DOUBLES_EQUAL(25, a.minor(1, 0), t);
+}
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);

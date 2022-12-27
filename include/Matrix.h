@@ -114,7 +114,7 @@ public:
     return data[0][0]*data[1][1] - data[0][1]*data[1][0];
   }
   
-  Matrix submatrix(int row, int col)
+  Matrix submatrix(int row, int col) const
   {
     const auto data = (*this).m;
     std::vector<std::vector<float>> s(data.size() - 1);
@@ -139,6 +139,12 @@ public:
 
     Matrix sMat(s);
     return sMat;
+  }
+
+  float minor(int row, int col) const
+  {
+    Matrix s = this->submatrix(row, col);
+    return s.determinant();
   }
 
 private:
