@@ -114,6 +114,33 @@ public:
     return data[0][0]*data[1][1] - data[0][1]*data[1][0];
   }
   
+  Matrix submatrix(int row, int col)
+  {
+    const auto data = (*this).m;
+    std::vector<std::vector<float>> s(data.size() - 1);
+    int sRow = 0, sCol = 0;
+    for (int i = 0; i < data.size(); ++i)
+    {
+      if (i == row) continue;
+
+      s[sRow].resize(data.size() - 1);
+      sCol = 0;
+      for (int j = 0; j < data[i].size(); ++j)
+      {
+        if (j == col) continue;
+
+        s[sRow][sCol] = data[i][j];
+
+        sCol++;
+      }
+
+      sRow++;
+    }
+
+    Matrix sMat(s);
+    return sMat;
+  }
+
 private:
   std::vector<std::vector<float>> m;
 };

@@ -436,6 +436,35 @@ TEST(Matrix, Determinant)
   DOUBLES_EQUAL(17, a.determinant(), t);
 }
 
+TEST(Matrix, Submatrix)
+{
+  Matrix a({
+    {1,5,0},
+    {-3,2,7},
+    {0,6,-3}
+  });
+  Matrix b = a.submatrix(0, 2);
+  Matrix b_exp({
+    {-3,2},
+    {0,6}
+  });
+  CHECK(b_exp == b);
+
+  Matrix a2({
+    {-6,1,1,6},
+    {-8,5,8,6},
+    {-1,0,8,2},
+    {-7,1,-1,1}
+  });
+  Matrix b2 = a2.submatrix(2,1);
+  Matrix b2_exp({
+    {-6,1,6},
+    {-8,8,6},
+    {-7,-1,1}
+  });
+  CHECK(b2_exp == b2);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
