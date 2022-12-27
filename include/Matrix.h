@@ -147,6 +147,12 @@ public:
     return s.determinant();
   }
 
+  float cofactor(int row, int col) const
+  {
+    float sign = (row + col) % 2 == 0 ? 1 : -1;
+    return this->minor(row, col) * sign;
+  }
+
 private:
   std::vector<std::vector<float>> m;
 };

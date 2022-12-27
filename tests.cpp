@@ -475,6 +475,18 @@ TEST(Matrix, Minor)
   double t = 0.1;
   DOUBLES_EQUAL(25, a.minor(1, 0), t);
 }
+
+TEST(Matrix, Cofactor)
+{
+  Matrix a({
+    {3, 5, 0},
+    {2,-1,-7},
+    {6,-1,5}
+  });
+  double t = 0.1;
+  DOUBLES_EQUAL(-12, a.cofactor(0, 0), t);
+  DOUBLES_EQUAL(-25, a.cofactor(1, 0), t);
+}
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
