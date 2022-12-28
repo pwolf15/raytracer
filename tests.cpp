@@ -443,7 +443,7 @@ TEST(Matrix, Determinant)
   DOUBLES_EQUAL(-196, b.determinant(), t);
 
   Matrix c({
-    {-2,8,3,5},
+    {-2,-8,3,5},
     {-3,1,7,3},
     {1,2,-9,6},
     {-6,7,7,-9}

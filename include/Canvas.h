@@ -8,7 +8,7 @@
 class Canvas
 {
 public:
-  Canvas(int w, int h): width(w), height(h), pixels{w*h,Color(0,0,0)} 
+  Canvas(int w, int h): width(w), height(h), pixels{(size_t)w*h,Color(0,0,0)} 
   {
     
   }
