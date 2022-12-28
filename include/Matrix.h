@@ -133,7 +133,6 @@ public:
         const int col = i;
 
         const auto cof = this->cofactor(row, col);
-        std::cout << "Cofactor: " << cof << std::endl;
         det += data[row][col] * cof;
       }
 
@@ -178,6 +177,11 @@ public:
   {
     float sign = (row + col) % 2 == 0 ? 1 : -1;
     return this->minor(row, col) * sign;
+  }
+
+  bool invertible() const
+  {
+    return this->determinant() != 0;
   }
 
 private:

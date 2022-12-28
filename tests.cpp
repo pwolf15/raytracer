@@ -502,6 +502,30 @@ TEST(Matrix, Cofactor)
   DOUBLES_EQUAL(-12, a.cofactor(0, 0), t);
   DOUBLES_EQUAL(-25, a.cofactor(1, 0), t);
 }
+
+TEST(Matrix, Invertible)
+{
+  Matrix a({
+    {6,4,4,4},
+    {5,5,7,6},
+    {4,-9,3,-7},
+    {9,1,7,-6}
+  });
+
+  double t = 0.1;
+  DOUBLES_EQUAL(-2120, a.determinant(), t);
+  CHECK(a.invertible());
+
+  Matrix b({
+    {-4,2,-2,-3},
+    {9,6,2,6},
+    {0,-5,1,-5},
+    {0,0,0,0}
+  });
+  DOUBLES_EQUAL(0, b.determinant(), t);
+  CHECK(!b.invertible());
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
