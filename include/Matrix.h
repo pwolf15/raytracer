@@ -31,13 +31,17 @@ public:
     if ((rows_a != rows_b) || (cols_a != cols_b)) return false;
 
     bool isEqual = true;
+    float threshold = 1e-5;
     for (size_t i = 0; i < rows_a; ++i)
     {
       for (size_t j = 0; j < cols_a; ++j)
       {
-        if ((*this)(i,j) != b(i, j))
+        if (std::abs((*this)(i,j) - b(i, j)) > threshold)
         {
           isEqual = false;
+          std::cout << "i,j" << i << "," << j << std::endl;
+          std::cout << (*this)(i,j) << "," << b(i,j) << std::endl;
+          std::cout << "Diff: " << std::abs((*this)(i,j) - b(i, j)) << std::endl;
           break;
         }
       }
@@ -183,6 +187,36 @@ public:
   {
     return this->determinant() != 0;
   }
+
+  Matrix inverse() const
+  {
+    if (!this->invertible())
+    {
+      std::cout << "Failed to invert" << std::endl;
+      Matrix m({{0,0,0,0},{0,0,0,0},{0,0,0,0},{0,0,0,0}});
+      return m;
+    }
+
+    const auto m_data = m;
+    std::vector<std::vector<float>> data(m_data.size());
+    const auto det = this->determinant();
+    for (int i = 0; i < m_data.size(); ++i)
+    {
+      data[i].resize(m_data[i].size());
+    }
+    for (int i = 0; i < m_data.size(); ++i)
+    {
+      for (int j = 0; j < m_data[i].size(); ++j)
+      {
+        float c = this->cofactor(i, j);
+        data[j][i] = c / det;
+      }
+    }
+
+    Matrix m2(data);
+    return m2;
+  }
+
 
 private:
   std::vector<std::vector<float>> m;

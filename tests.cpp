@@ -526,6 +526,24 @@ TEST(Matrix, Invertible)
   CHECK(!b.invertible());
 }
 
+TEST(Matrix, Inverse)
+{
+  Matrix a({
+    {-5,2,6,-8},
+    {1,-5,1,8},
+    {7,7,-6,-7},
+    {1,-3,7,4}
+  });
+  Matrix a_I = a.inverse();
+  Matrix a_I_exp({
+    {0.21805,0.45113,0.24060,-0.04511},
+    {-0.80827,-1.45677,-0.44361,0.52068},
+    {-0.07895,-0.22368,-0.05263,0.19737},
+    {-0.52256,-0.81391,-0.30075,0.30639}
+  });
+  CHECK(a_I == a_I_exp);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
