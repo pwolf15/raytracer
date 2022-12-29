@@ -3,6 +3,12 @@
 
 #include <iostream>
 
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/fmt/ostr.h>
+
+#include "Tuple.h"
+
 class Matrix
 {
 public:
@@ -215,6 +221,26 @@ public:
 
     Matrix m2(data);
     return m2;
+  }
+
+  friend std::ostream& operator<<(std::ostream& os, const Matrix &m)
+  {
+    std::string tmp = "\n";
+    for (int i = 0; i < m.m.size(); ++i)
+    {
+      tmp += "[";
+      for (int j = 0; j < m.m.size(); ++j)
+      {
+        tmp += fmt::format("{:03.2f}", m(i,j));
+        if (j < m.m.size() - 1)
+        {
+          tmp += ",";
+        }
+      }
+      tmp += "]\n";
+    }
+    os << tmp;
+    return os;
   }
 
 

@@ -666,6 +666,10 @@ TEST(Transformations, Translate)
   Vector tv_exp({-3,4,5});
 
   CHECK(tv == tv_exp);
+
+  std::cout << "vector: " << v << std::endl;
+  std::cout << "translation: " << t << std::endl;
+  std::cout << "translated vector: " << tv << std::endl;
 }
 
 int main(int ac, char** av)

@@ -2,6 +2,9 @@
 #define TUPLE_H
 
 #include <vector>
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/fmt/ostr.h>
 
 class Tuple
 {
@@ -66,6 +69,19 @@ public:
   {
     Tuple result(lhs.x / s, lhs.y / s, lhs.z / s, lhs.w / s);
     return result;
+  }
+
+  friend std::ostream& operator<<(std::ostream& os, const Tuple &t)
+  {
+    std::string tmp = "\n";
+    tmp += "[";
+    tmp += fmt::format("{:03.2f}", t.x) + ",";
+    tmp += fmt::format("{:03.2f}", t.y) + ",";
+    tmp += fmt::format("{:03.2f}", t.z) + ",";
+    tmp += fmt::format("{:03.2f}", t.w) + "]\n";
+
+    os << tmp;
+    return os;
   }
 
   float x, y, z, w;
