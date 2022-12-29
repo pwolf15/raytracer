@@ -573,6 +573,22 @@ TEST(Matrix, Inverse)
     {0.17778,0.06667,-0.26667,0.33333}
   });
   CHECK(c_I == c_I_exp);
+
+  Matrix d({
+    {3,-9,7,3},
+    {3,-8,2,-9},
+    {-4,4,4,1},
+    {-6,5,-1,1}
+  });
+  Matrix e({
+    {8,2,2,2},
+    {3,-1,7,0},
+    {7,0,5,4},
+    {6,-2,0,5}
+  });
+  Matrix f = d * e;
+  Matrix g = f * e.inverse();
+  CHECK(d == g);
 }
 
 int main(int ac, char** av)
