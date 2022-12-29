@@ -591,6 +591,52 @@ TEST(Matrix, Inverse)
   CHECK(d == g);
 }
 
+TEST(Matrix, Chapter3Questions)
+{
+  // inverse of identity == identity
+  Matrix a({
+    {1,0,0,0},
+    {0,1,0,0},
+    {0,0,1,0},
+    {0,0,0,1}
+  });
+  Matrix a_I = a.inverse();
+  CHECK(a_I == a);
+
+  // product of matrix with its inverse == identity
+  Matrix b({
+    {8,2,2,2},
+    {3,-1,7,0},
+    {7,0,5,4},
+    {6,-2,0,5}
+  });
+
+  Matrix b_I = b.inverse();
+  Matrix c = b * b_I;
+  CHECK(c == a);
+
+  // tranpose of inverse == inverse of tranpose
+  Matrix bT = b.transpose();
+  Matrix bT_I = bT.inverse();
+  Matrix bI = b.inverse();
+  Matrix bI_T = bI.transpose();
+  CHECK(bT_I == bI_T);
+
+  // changing one element of identity matrix
+  // results in multiplying associated element by scalar factor
+  Matrix d({
+    {5,0,0,0},
+    {0,1,0,0},
+    {0,0,1,0},
+    {0,0,0,1}
+  });
+  Tuple t({0.1,0.2,0.3,0.4});
+  Tuple r = d*t;
+  std::cout << r.x << "," << r.y << "," << r.z << "," << r.w << std::endl;
+
+
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
