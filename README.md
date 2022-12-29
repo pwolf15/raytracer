@@ -5,6 +5,7 @@ Minor
 * add verification on rows cols
 * clang format
 * move tests into separate files
+* CI/CD
 
 
 Major
