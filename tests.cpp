@@ -6,6 +6,7 @@
 #include "Color.h"
 #include "Canvas.h"
 #include "Matrix.h"
+#include "Transformations.h"
 
 #include <fstream>
 #include <iostream>
@@ -635,6 +636,36 @@ TEST(Matrix, Chapter3Questions)
   std::cout << r.x << "," << r.y << "," << r.z << "," << r.w << std::endl;
 
 
+}
+
+TEST_GROUP(Transformations)
+{
+
+};
+
+TEST(Transformations, Translate)
+{
+  // point translation works
+  Matrix t = translation(5, -3, 2);
+  Point p({-3, 4, 5});
+  Point tp = t * p;
+  Point tp_exp({2,1,7});
+
+  CHECK(tp == tp_exp);
+
+  // inverse translation
+  Matrix tI = t.inverse();
+  Point pI = tI * p;
+  Point pI_exp({-8,7,3});
+
+  CHECK(pI == pI_exp);
+
+  // vector translation
+  Vector v({-3,4,5});
+  Vector tv = t * v;
+  Vector tv_exp({-3,4,5});
+
+  CHECK(tv == tv_exp);
 }
 
 int main(int ac, char** av)
