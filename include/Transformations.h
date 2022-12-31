@@ -25,4 +25,15 @@ Matrix scaling(float x, float y, float z)
     return m;
 }
 
+Matrix rotation_x(float rad)
+{
+    Matrix m({
+        {1,0,0,0},
+        {0,cos(rad),-sin(rad),0},
+        {0,sin(rad),cos(rad),0},
+        {0,0,0,1}
+    });
+    return m;
+}
+
 #endif

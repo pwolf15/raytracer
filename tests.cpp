@@ -11,6 +11,9 @@
 #include <fstream>
 #include <iostream>
 
+
+#define PI 3.14159265358979
+
 TEST_GROUP(Tuple)
 {
 };
@@ -697,6 +700,20 @@ TEST(Transformations, Scale)
   Point p2R_exp({-2, 3, 4});
 
   CHECK(p2r == p2R_exp);
+}
+
+TEST(Transformations, Rotate)
+{
+  Point p({0,1,0});
+  Matrix half_quarter = rotation_x(PI / 4);
+  Matrix full_quarter = rotation_x(PI / 2);
+  Point p1 = half_quarter * p;
+  Point p2 = full_quarter * p;
+  Point p1_exp({0, sqrtf(2)/2, sqrtf(2)/2});
+  Point p2_exp({0, 0, 1});
+
+  CHECK(p1 == p1_exp);
+  CHECK(p2 == p2_exp);
 }
 
 int main(int ac, char** av)
