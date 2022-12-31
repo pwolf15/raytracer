@@ -689,6 +689,14 @@ TEST(Transformations, Scale)
   Vector sIV = sI * v;
 
   CHECK(sIV_exp == sIV);
+
+  // reflection
+  Matrix r = scaling(-1, 1, 1);
+  Point p2({2, 3, 4});
+  Point p2r = r * p2;
+  Point p2R_exp({-2, 3, 4});
+
+  CHECK(p2r == p2R_exp);
 }
 
 int main(int ac, char** av)
