@@ -666,10 +666,29 @@ TEST(Transformations, Translate)
   Vector tv_exp({-3,4,5});
 
   CHECK(tv == tv_exp);
+}
 
-  std::cout << "vector: " << v << std::endl;
-  std::cout << "translation: " << t << std::endl;
-  std::cout << "translated vector: " << tv << std::endl;
+TEST(Transformations, Scale)
+{
+  Matrix s = scaling(2, 3, 4);
+  Point p({-4, 6, 8});
+  Point sP = s * p;
+  Point sP_exp({-8, 18, 32});
+
+  CHECK(sP_exp == sP);
+
+  Vector v({-4,6,8});
+  Vector sV = s * v;
+  Vector sV_exp({-8, 18, 32});
+
+  CHECK(sV_exp == sV);
+
+  // inverse
+  Matrix sI = s.inverse();
+  Vector sIV_exp({-2, 2, 2});
+  Vector sIV = sI * v;
+
+  CHECK(sIV_exp == sIV);
 }
 
 int main(int ac, char** av)

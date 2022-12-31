@@ -14,4 +14,15 @@ Matrix translation(float x, float y, float z)
     return m;
 }
 
+Matrix scaling(float x, float y, float z)
+{
+    Matrix m({
+        {x, 0, 0, 0},
+        {0, y, 0, 0},
+        {0, 0, z, 0},
+        {0, 0, 0, 1}
+    });
+    return m;
+}
+
 #endif
