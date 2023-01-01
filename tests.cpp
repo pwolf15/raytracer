@@ -747,11 +747,36 @@ TEST(Transformations, RotateZ)
 TEST(Transformations, Shear)
 {
   Point p({2,3,4});
+
+  Matrix transform1 = shearing(1, 0, 0, 0, 0, 0);
+  Point p1 = transform1 * p;
+  Point p1_exp({5,3,4});
+  CHECK(p1 == p1_exp);
+
   Matrix transform2 = shearing(0, 1, 0, 0, 0, 0);
   Point p2 = transform2 * p;
   Point p2_exp({6,3,4});
-  
   CHECK(p2 == p2_exp);
+
+  Matrix transform3 = shearing(0, 0, 1, 0, 0, 0);
+  Point p3 = transform3 * p;
+  Point p3_exp({2, 5, 4});
+  CHECK(p3 == p3_exp);
+
+  Matrix transform4 = shearing(0, 0, 0, 1, 0, 0);
+  Point p4 = transform4 * p;
+  Point p4_exp({2,7,4});
+  CHECK(p4 == p4_exp);
+
+  Matrix transform5 = shearing(0, 0, 0, 0, 1, 0);
+  Point p5 = transform5 * p;
+  Point p5_exp({2,3,6});
+  CHECK(p5 == p5_exp);
+
+  Matrix transform6 = shearing(0, 0, 0, 0, 0, 1);
+  Point p6 = transform6 * p;
+  Point p6_exp({2,3,7});
+  CHECK(p6 == p6_exp);
 }
 
 int main(int ac, char** av)
