@@ -744,6 +744,16 @@ TEST(Transformations, RotateZ)
   CHECK(p2 == p2_exp);
 }
 
+TEST(Transformations, Shear)
+{
+  Point p({2,3,4});
+  Matrix transform2 = shearing(0, 1, 0, 0, 0, 0);
+  Point p2 = transform2 * p;
+  Point p2_exp({6,3,4});
+  
+  CHECK(p2 == p2_exp);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);

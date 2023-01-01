@@ -58,5 +58,15 @@ Matrix rotation_z(float rad)
     return m;
 }
 
+Matrix shearing(float xy, float xz, float yx, float yz, float zx, float zy)
+{
+    Matrix m({
+        {1, xy, xz,0},
+        {yx, 1, yz, 0},
+        {zx, zy, 1,0},
+        {0,0,0,1}
+    });
+    return m;
+}
 
 #endif
