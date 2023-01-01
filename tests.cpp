@@ -779,6 +779,34 @@ TEST(Transformations, Shear)
   CHECK(p6 == p6_exp);
 }
 
+TEST(Transformations, Chaining)
+{
+  // individual transformations
+  Point p({1,0,1});
+  Matrix A = rotation_x(PI / 2);
+  Matrix B = scaling(5,5,5);
+  Matrix C = translation(10,5,7);
+
+  // rotation
+  Point p2 = A * p;
+  Point p2_exp({1, -1, 0});
+  CHECK(p2_exp == p2);
+
+  // scaling
+  Point p3 = B * p2;
+  Point p3_exp({5, -5, 0});
+  CHECK(p3_exp == p3);
+
+  // translation
+  Point p4 = C * p3;
+  Point p4_exp({15, 0, 7});
+  CHECK(p4_exp == p4);
+
+  // chained
+  Matrix T = C * B * A;
+  Point p5 = T * p;
+  CHECK(p4_exp == p5);
+}
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
