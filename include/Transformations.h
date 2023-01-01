@@ -36,4 +36,27 @@ Matrix rotation_x(float rad)
     return m;
 }
 
+Matrix rotation_y(float rad)
+{
+    Matrix m({
+        {cos(rad),0,sin(rad),0},
+        {0,1,0,0},
+        {-sin(rad),0,cos(rad),0},
+        {0,0,0,1}
+    });
+    return m;
+}
+
+Matrix rotation_z(float rad)
+{
+    Matrix m({
+        {cos(rad),-sin(rad),0,0},
+        {sin(rad),cos(rad),0,0},
+        {0,0,1,0},
+        {0,0,0,1}
+    });
+    return m;
+}
+
+
 #endif

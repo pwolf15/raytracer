@@ -702,7 +702,7 @@ TEST(Transformations, Scale)
   CHECK(p2r == p2R_exp);
 }
 
-TEST(Transformations, Rotate)
+TEST(Transformations, RotateX)
 {
   Point p({0,1,0});
   Matrix half_quarter = rotation_x(PI / 4);
@@ -711,6 +711,34 @@ TEST(Transformations, Rotate)
   Point p2 = full_quarter * p;
   Point p1_exp({0, sqrtf(2)/2, sqrtf(2)/2});
   Point p2_exp({0, 0, 1});
+
+  CHECK(p1 == p1_exp);
+  CHECK(p2 == p2_exp);
+}
+
+TEST(Transformations, RotateY)
+{
+  Point p({0,0,1});
+  Matrix half_quarter = rotation_y(PI / 4);
+  Matrix full_quarter = rotation_y(PI / 2);
+  Point p1 = half_quarter * p;
+  Point p2 = full_quarter * p;
+  Point p1_exp({sqrtf(2)/2, 0, sqrtf(2)/2});
+  Point p2_exp({1, 0, 0});
+
+  CHECK(p1 == p1_exp);
+  CHECK(p2 == p2_exp);
+}
+
+TEST(Transformations, RotateZ)
+{
+  Point p({0,1,0});
+  Matrix half_quarter = rotation_z(PI / 4);
+  Matrix full_quarter = rotation_z(PI / 2);
+  Point p1 = half_quarter * p;
+  Point p2 = full_quarter * p;
+  Point p1_exp({-sqrtf(2)/2, sqrtf(2)/2, 0});
+  Point p2_exp({-1, 0, 0});
 
   CHECK(p1 == p1_exp);
   CHECK(p2 == p2_exp);
