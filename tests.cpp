@@ -7,6 +7,7 @@
 #include "Canvas.h"
 #include "Matrix.h"
 #include "Transformations.h"
+#include "Ray.h"
 
 #include <fstream>
 #include <iostream>
@@ -807,6 +808,22 @@ TEST(Transformations, Chaining)
   Point p5 = T * p;
   CHECK(p4_exp == p5);
 }
+
+TEST_GROUP(Rays)
+{
+
+};
+
+TEST(Rays, Rays)
+{
+  Point origin({1,2,3});
+  Vector direction({4,5,6});
+  Ray ray(origin, direction);
+
+  CHECK(ray.origin == origin);
+  CHECK(ray.direction == direction);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
