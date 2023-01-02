@@ -824,6 +824,15 @@ TEST(Rays, Rays)
   CHECK(ray.direction == direction);
 }
 
+TEST(Rays, Position)
+{
+  Ray ray(Point({2,3,4}), Vector({1,0,0}));
+  CHECK(ray.position(0) == Point({2,3,4}));
+  CHECK(ray.position(1) == Point({3,3,4}));
+  CHECK(ray.position(-1) == Point({1,3,4}));
+  CHECK(ray.position(2.5) == Point({4.5,3,4}));
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
