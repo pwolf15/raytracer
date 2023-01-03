@@ -29,11 +29,7 @@ public:
         float t1 = (-b - sqrt(discriminant)) / (2 * a);
         float t2 = (-b + sqrt(discriminant)) / (2 * a);
 
-        if (t1 != t2)
-        {
-            ts.push_back(t1);
-        }
-
+        ts.push_back(t1);
         ts.push_back(t2);
         
         return ts;

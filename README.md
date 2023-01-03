@@ -5,6 +5,7 @@ Dependencies
 TODO
 
 Minor
+* review intersection logic (see p. 62)
 * refactor C++ to add rows, cols
 * add verification on rows cols
 * clang format

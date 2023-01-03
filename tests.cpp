@@ -842,6 +842,28 @@ TEST(Rays, Intersect)
   CHECK_EQUAL(2, xs.size());
   DOUBLES_EQUAL(4.0, xs[0], 0);
   DOUBLES_EQUAL(6.0, xs[1], 0);
+
+  Ray ray2(Point({0,1,-5}), Vector({0,0,1}));
+  xs = s.intersect(ray2);
+  CHECK_EQUAL(2, xs.size());
+  DOUBLES_EQUAL(5.0, xs[0], 0);
+  DOUBLES_EQUAL(5.0, xs[1], 0);
+
+  Ray ray3(Point({0,2,-5}), Vector({0,0,1}));
+  xs = s.intersect(ray3);
+  CHECK_EQUAL(0, xs.size());
+
+  Ray ray4(Point({0,0,0}), Vector({0,0,1}));
+  xs = s.intersect(ray4);
+  CHECK_EQUAL(2, xs.size());
+  DOUBLES_EQUAL(-1.0, xs[0], 0);
+  DOUBLES_EQUAL(1.0, xs[1], 0);
+
+  Ray ray5(Point({0,0,5}), Vector({0,0,1}));
+  xs = s.intersect(ray5);
+  CHECK_EQUAL(2, xs.size());
+  DOUBLES_EQUAL(-6.0, xs[0], 0);
+  DOUBLES_EQUAL(-4.0, xs[1], 0);
 }
 
 int main(int ac, char** av)
