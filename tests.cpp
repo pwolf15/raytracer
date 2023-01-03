@@ -8,6 +8,7 @@
 #include "Matrix.h"
 #include "Transformations.h"
 #include "Ray.h"
+#include "Sphere.h"
 
 #include <fstream>
 #include <iostream>
@@ -831,6 +832,16 @@ TEST(Rays, Position)
   CHECK(ray.position(1) == Point({3,3,4}));
   CHECK(ray.position(-1) == Point({1,3,4}));
   CHECK(ray.position(2.5) == Point({4.5,3,4}));
+}
+
+TEST(Rays, Intersect)
+{
+  Ray ray(Point({0,0,-5}), Vector({0,0,1}));
+  Sphere s;
+  std::vector<float> xs = s.intersect(ray);
+  CHECK_EQUAL(2, xs.size());
+  DOUBLES_EQUAL(4.0, xs[0], 0);
+  DOUBLES_EQUAL(6.0, xs[1], 0);
 }
 
 int main(int ac, char** av)
