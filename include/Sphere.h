@@ -42,6 +42,11 @@ public:
         return ts;
     }
 
+    void set_transform(Matrix t)
+    {
+        transform = t;
+    }
+
     Matrix transform;
 private:
 

@@ -935,6 +935,28 @@ TEST(Intersection, Hit)
   CHECK_EQUAL(i10.t, i_opt->t);
 }
 
+TEST_GROUP(Spheres)
+{
+
+};
+
+TEST(Spheres, Transform)
+{
+    Sphere s; 
+    Matrix identity(
+    {
+        {1,0,0,0},
+        {0,1,0,0},
+        {0,0,1,0},
+        {0,0,0,1}
+    });
+    CHECK(identity == s.transform);
+
+    Matrix t = translation(2, 3, 4);
+    s.set_transform(t);
+    CHECK(s.transform == t);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
