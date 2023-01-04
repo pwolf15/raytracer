@@ -866,6 +866,30 @@ TEST(Rays, Intersect)
   DOUBLES_EQUAL(-4.0, xs[1], 0);
 }
 
+TEST_GROUP(Intersection)
+{
+
+};
+
+TEST(Intersection, Intersection)
+{
+  Sphere s;
+  Intersection i(3.5, &s);
+
+  DOUBLES_EQUAL(3.5, i.t, 0);
+  CHECK(&s == i.object);
+}
+
+TEST(Intersection, Intersections)
+{
+  Sphere s;
+  Intersection i1(1, &s), i2(2, &s);
+  std::vector<Intersection> xs = intersections({i1, i2});
+  CHECK_EQUAL(2, xs.size());
+  DOUBLES_EQUAL(1, xs[0].t, 0);
+  DOUBLES_EQUAL(2, xs[1].t, 0);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);

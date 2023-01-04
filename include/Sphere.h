@@ -6,6 +6,8 @@
 #include "Vector.h"
 #include "Ray.h"
 
+#include "Intersection.h"
+
 class Sphere
 {
 public:
