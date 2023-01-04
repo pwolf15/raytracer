@@ -22,4 +22,10 @@ private:
 
 };
 
+Ray transform(Ray r, Matrix m)
+{
+    Ray rT(m*r.origin, m*r.direction);
+    return rT;
+}
+
 #endif // RAY_H

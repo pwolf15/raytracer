@@ -11,7 +11,12 @@
 class Sphere
 {
 public:
-    Sphere() {}
+    Sphere(): transform({
+        {1,0,0,0},
+        {0,1,0,0},
+        {0,0,1,0},
+        {0,0,0,1}
+    }) {}
 
     std::vector<Intersection> intersect(Ray r)
     {
@@ -37,7 +42,9 @@ public:
         return ts;
     }
 
+    Matrix transform;
 private:
+
 };
 
 #endif // SPHERE_H

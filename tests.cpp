@@ -868,6 +868,22 @@ TEST(Rays, Intersect)
   DOUBLES_EQUAL(-4.0, xs[1].t, 0);
 }
 
+TEST(Rays, Transform)
+{
+  Ray r(Point(1,2,3), Vector(0,1,0));
+  Matrix m = translation(3,4,5);
+  Ray r2 = transform(r,m);
+
+  CHECK(Point(4,6,8) == r2.origin);
+  CHECK(Vector(0,1,0) == r2.direction);
+
+  m = scaling(2,3,4);
+  r2 = transform(r,m);
+
+  CHECK(Point(2,6,12) == r2.origin);
+  CHECK(Vector(0,3,0) == r2.direction);  
+}
+
 TEST_GROUP(Intersection)
 {
 
