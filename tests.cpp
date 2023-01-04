@@ -892,6 +892,33 @@ TEST(Intersection, Intersections)
   DOUBLES_EQUAL(2, xs[1].t, 0);
 }
 
+TEST(Intersection, Hit)
+{
+  Sphere s;
+  Intersection i1(1, &s), i2(2, &s);
+  std::vector<Intersection> xs = intersections({i1, i2});
+  std::optional<Intersection> i_opt = hit(xs);
+  CHECK(i_opt.has_value());
+  CHECK_EQUAL(i1.t, i_opt->t);
+
+  Intersection i3(-1, &s), i4(1, &s);
+  xs = intersections({i3, i4});
+  i_opt = hit(xs);
+  CHECK(i_opt.has_value());
+  CHECK_EQUAL(i4.t, i_opt->t);
+
+  Intersection i5(-2, &s), i6(-1, &s);
+  xs = intersections({i5, i6});
+  i_opt = hit(xs);
+  CHECK(!i_opt.has_value());
+
+  Intersection i7(5, &s), i8(7, &s), i9(-3, &s), i10(2, &s);
+  xs = intersections({i7,i8,i9,i10});
+  i_opt = hit(xs);
+  CHECK(i_opt.has_value());
+  CHECK_EQUAL(i10.t, i_opt->t);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
