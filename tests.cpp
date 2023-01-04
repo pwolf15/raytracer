@@ -838,16 +838,18 @@ TEST(Rays, Intersect)
 {
   Ray ray(Point({0,0,-5}), Vector({0,0,1}));
   Sphere s;
-  std::vector<float> xs = s.intersect(ray);
+  std::vector<Intersection> xs = s.intersect(ray);
   CHECK_EQUAL(2, xs.size());
-  DOUBLES_EQUAL(4.0, xs[0], 0);
-  DOUBLES_EQUAL(6.0, xs[1], 0);
+  DOUBLES_EQUAL(4.0, xs[0].t, 0);
+  DOUBLES_EQUAL(6.0, xs[1].t, 0);
+  CHECK_EQUAL(&s, xs[0].object);
+  CHECK_EQUAL(&s, xs[1].object);
 
   Ray ray2(Point({0,1,-5}), Vector({0,0,1}));
   xs = s.intersect(ray2);
   CHECK_EQUAL(2, xs.size());
-  DOUBLES_EQUAL(5.0, xs[0], 0);
-  DOUBLES_EQUAL(5.0, xs[1], 0);
+  DOUBLES_EQUAL(5.0, xs[0].t, 0);
+  DOUBLES_EQUAL(5.0, xs[1].t, 0);
 
   Ray ray3(Point({0,2,-5}), Vector({0,0,1}));
   xs = s.intersect(ray3);
@@ -856,14 +858,14 @@ TEST(Rays, Intersect)
   Ray ray4(Point({0,0,0}), Vector({0,0,1}));
   xs = s.intersect(ray4);
   CHECK_EQUAL(2, xs.size());
-  DOUBLES_EQUAL(-1.0, xs[0], 0);
-  DOUBLES_EQUAL(1.0, xs[1], 0);
+  DOUBLES_EQUAL(-1.0, xs[0].t, 0);
+  DOUBLES_EQUAL(1.0, xs[1].t, 0);
 
   Ray ray5(Point({0,0,5}), Vector({0,0,1}));
   xs = s.intersect(ray5);
   CHECK_EQUAL(2, xs.size());
-  DOUBLES_EQUAL(-6.0, xs[0], 0);
-  DOUBLES_EQUAL(-4.0, xs[1], 0);
+  DOUBLES_EQUAL(-6.0, xs[0].t, 0);
+  DOUBLES_EQUAL(-4.0, xs[1].t, 0);
 }
 
 TEST_GROUP(Intersection)

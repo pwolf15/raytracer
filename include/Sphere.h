@@ -13,9 +13,9 @@ class Sphere
 public:
     Sphere() {}
 
-    std::vector<float> intersect(Ray r)
+    std::vector<Intersection> intersect(Ray r)
     {
-        std::vector<float> ts;
+        std::vector<Intersection> ts;
 
         Vector sphere_to_ray = r.origin - Point(0, 0, 0);
         float a = r.direction.dot(r.direction);
@@ -31,8 +31,8 @@ public:
         float t1 = (-b - sqrt(discriminant)) / (2 * a);
         float t2 = (-b + sqrt(discriminant)) / (2 * a);
 
-        ts.push_back(t1);
-        ts.push_back(t2);
+        ts.push_back(Intersection(t1, this));
+        ts.push_back(Intersection(t2, this));
         
         return ts;
     }
