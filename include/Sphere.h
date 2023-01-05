@@ -22,9 +22,11 @@ public:
     {
         std::vector<Intersection> ts;
 
-        Vector sphere_to_ray = r.origin - Point(0, 0, 0);
-        float a = r.direction.dot(r.direction);
-        float b = 2 * r.direction.dot(sphere_to_ray);
+        Matrix inv = transform.inverse();
+        Ray ray2 = r.transform(inv);
+        Vector sphere_to_ray = ray2.origin - Point(0, 0, 0);
+        float a = ray2.direction.dot(ray2.direction);
+        float b = 2 * ray2.direction.dot(sphere_to_ray);
         float c = sphere_to_ray.dot(sphere_to_ray) - 1;
         float discriminant = pow(b,2) - 4*a*c;
 

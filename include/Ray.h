@@ -15,17 +15,17 @@ public:
         return origin + direction * t;
     }
 
+    Ray transform(Matrix m) const
+    {
+        Ray rT(m*origin, m*direction);
+        return rT;
+    }
+
     Point origin;
     Vector direction;
 
 private:
 
 };
-
-Ray transform(Ray r, Matrix m)
-{
-    Ray rT(m*r.origin, m*r.direction);
-    return rT;
-}
 
 #endif // RAY_H

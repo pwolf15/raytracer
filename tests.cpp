@@ -872,13 +872,13 @@ TEST(Rays, Transform)
 {
   Ray r(Point(1,2,3), Vector(0,1,0));
   Matrix m = translation(3,4,5);
-  Ray r2 = transform(r,m);
+  Ray r2 = r.transform(m);
 
   CHECK(Point(4,6,8) == r2.origin);
   CHECK(Vector(0,1,0) == r2.direction);
 
   m = scaling(2,3,4);
-  r2 = transform(r,m);
+  r2 = r.transform(m);
 
   CHECK(Point(2,6,12) == r2.origin);
   CHECK(Vector(0,3,0) == r2.direction);  
@@ -942,19 +942,34 @@ TEST_GROUP(Spheres)
 
 TEST(Spheres, Transform)
 {
-    Sphere s; 
-    Matrix identity(
-    {
-        {1,0,0,0},
-        {0,1,0,0},
-        {0,0,1,0},
-        {0,0,0,1}
-    });
-    CHECK(identity == s.transform);
+  Sphere s; 
+  Matrix identity(
+  {
+      {1,0,0,0},
+      {0,1,0,0},
+      {0,0,1,0},
+      {0,0,0,1}
+  });
+  CHECK(identity == s.transform);
 
-    Matrix t = translation(2, 3, 4);
-    s.set_transform(t);
-    CHECK(s.transform == t);
+  Matrix t = translation(2, 3, 4);
+  s.set_transform(t);
+  CHECK(s.transform == t);
+}
+
+TEST(Spheres, Intersect)
+{
+  Ray r(Point(0,0,-5), Vector(0,0,1));
+  Sphere s;
+  s.set_transform(scaling(2,2,2));
+  std::vector<Intersection> xs = s.intersect(r);
+  CHECK_EQUAL(2, xs.size());
+  DOUBLES_EQUAL(3, xs[0].t, 0);
+  DOUBLES_EQUAL(7, xs[1].t, 0);
+
+  s.set_transform(translation(5,0,0));
+  xs = s.intersect(r);
+  CHECK_EQUAL(0, xs.size());
 }
 
 int main(int ac, char** av)
