@@ -1,6 +1,7 @@
 #ifndef RAY_H
 #define RAY_H
 
+#include "Matrix.h"
 #include "Point.h"
 #include "Vector.h"
 
