@@ -42,7 +42,7 @@ int main()
             // note, for y, greater i corresponds to lesser y in coord space
             // for this reason, we subtract from half (largest wall y coord)
             Point wallPoint(j*pixel_size-half, half-i*pixel_size, wall_z);
-            Ray r(eye_origin, Vector(wallPoint.x-eye_origin.x, wallPoint.y-eye_origin.y, wallPoint.z-eye_origin.z));
+            Ray r(eye_origin, Vector(wallPoint-eye_origin).normalize());
         
             // obtain intersections for given ray
             // if hit occurs, update the pixel color

@@ -972,6 +972,19 @@ TEST(Spheres, Intersect)
   CHECK_EQUAL(0, xs.size());
 }
 
+TEST(Spheres, NormalAt)
+{
+  Sphere s;
+  Vector n = s.normal_at(Point(1,0,0));
+  CHECK(Vector(1,0,0) == n);
+  n = s.normal_at(Point(0,1,0));
+  CHECK(Vector(0,1,0) == n);
+  n = s.normal_at(Point(0,0,1));
+  CHECK(Vector(0,0,1) == n);
+  n = s.normal_at(Point(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3));
+  CHECK(Vector(sqrt(3)/3,sqrt(3)/3,sqrt(3)/3) == n);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);

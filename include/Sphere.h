@@ -49,6 +49,11 @@ public:
         transform = t;
     }
 
+    Vector normal_at(Point p)
+    {
+        return Vector(p - Point(0,0,0)).normalize();
+    }
+
     Matrix transform;
 private:
 
