@@ -25,7 +25,7 @@ public:
 
   bool operator==(Tuple const& rhs) const
   {
-    double th = 1e-6;
+    double th = 1e-5;
     bool equal = 
       (abs(x - rhs.x) < th) && 
       (abs(y - rhs.y) < th) &&
@@ -75,10 +75,10 @@ public:
   {
     std::string tmp = "\n";
     tmp += "[";
-    tmp += fmt::format("{:03.2f}", t.x) + ",";
-    tmp += fmt::format("{:03.2f}", t.y) + ",";
-    tmp += fmt::format("{:03.2f}", t.z) + ",";
-    tmp += fmt::format("{:03.2f}", t.w) + "]\n";
+    tmp += fmt::format("{:03.5f}", t.x) + ",";
+    tmp += fmt::format("{:03.5f}", t.y) + ",";
+    tmp += fmt::format("{:03.5f}", t.z) + ",";
+    tmp += fmt::format("{:03.5f}", t.w) + "]\n";
 
     os << tmp;
     return os;

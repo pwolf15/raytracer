@@ -55,7 +55,7 @@ public:
         Vector object_normal = object_point - Point(0,0,0);
         Vector world_normal = transform.inverse().transpose() * object_normal;
         world_normal.w = 0;
-        return world_normal;
+        return world_normal.normalize();
     }
 
     Matrix transform;

@@ -16,6 +16,14 @@
 
 #define PI 3.14159265358979
 
+void TUPLES_EQUAL(const Tuple& a, const Tuple& b, float th = 0.1)
+{
+  DOUBLES_EQUAL(a.x, b.x, th);
+  DOUBLES_EQUAL(a.y, b.y, th);
+  DOUBLES_EQUAL(a.z, b.z, th);
+  DOUBLES_EQUAL(a.w, b.w, th);
+}
+
 TEST_GROUP(Tuple)
 {
 };
@@ -987,13 +995,12 @@ TEST(Spheres, NormalAt)
   // translated
   s.set_transform(translation(0,1,0));
   n = s.normal_at(Point(0,1.70711,-0.70711));
-  std::cout << "n: " << n << std::endl;
-  CHECK(Vector(0,0.70711,-0.70711) == n);
+  TUPLES_EQUAL(Vector(0,0.70711,-0.70711), n, 1e-5);
 
   // transformed
   s.set_transform(scaling(1,0.5,1)*rotation_z(PI/5));
   n = s.normal_at(Point(0, sqrt(2)/2,-sqrt(2)/2));
-  CHECK(Vector(0,0.97014,-0.24254) == n);
+  TUPLES_EQUAL(Vector(0,0.97014,-0.24254), n, 1e-5);
 }
 
 int main(int ac, char** av)
