@@ -983,6 +983,17 @@ TEST(Spheres, NormalAt)
   CHECK(Vector(0,0,1) == n);
   n = s.normal_at(Point(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3));
   CHECK(Vector(sqrt(3)/3,sqrt(3)/3,sqrt(3)/3) == n.normalize());
+
+  // translated
+  s.set_transform(translation(0,1,0));
+  n = s.normal_at(Point(0,1.70711,-0.70711));
+  std::cout << "n: " << n << std::endl;
+  CHECK(Vector(0,0.70711,-0.70711) == n);
+
+  // transformed
+  s.set_transform(scaling(1,0.5,1)*rotation_z(PI/5));
+  n = s.normal_at(Point(0, sqrt(2)/2,-sqrt(2)/2));
+  CHECK(Vector(0,0.97014,-0.24254) == n);
 }
 
 int main(int ac, char** av)

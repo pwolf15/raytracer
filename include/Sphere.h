@@ -51,7 +51,11 @@ public:
 
     Vector normal_at(Point p)
     {
-        return Vector(p - Point(0,0,0)).normalize();
+        Point object_point = transform.inverse() * p;
+        Vector object_normal = object_point - Point(0,0,0);
+        Vector world_normal = transform.inverse().transpose() * object_normal;
+        world_normal.w = 0;
+        return world_normal;
     }
 
     Matrix transform;
