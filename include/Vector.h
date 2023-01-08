@@ -33,6 +33,12 @@ public:
       this->z*rhs.x - this->x*rhs.z, 
       this->x*rhs.y-this->y*rhs.x);
   }
+
+  Vector reflect(Vector normal)
+  {
+    Vector in = (*this);
+    return in - normal * 2 * in.dot(normal);
+  }
 };
 
 #endif

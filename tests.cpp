@@ -1003,6 +1003,19 @@ TEST(Spheres, NormalAt)
   TUPLES_EQUAL(Vector(0,0.97014,-0.24254), n, 1e-5);
 }
 
+TEST(Vector, Reflect)
+{
+  Vector v(1,-1,0);
+  Vector n(0,1,0);
+  Vector r = v.reflect(n);
+  TUPLES_EQUAL(Vector(1,1,0), r);
+
+  v = Vector(0,-1,0);
+  n = Vector(sqrt(2)/2,sqrt(2)/2, 0);
+  r = v.reflect(n);
+  TUPLES_EQUAL(Vector(1,0,0),r);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
