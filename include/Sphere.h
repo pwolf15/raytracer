@@ -51,8 +51,11 @@ public:
 
     Vector normal_at(Point p)
     {
+        // compute normal by transforming sphere from world to object space
         Point object_point = transform.inverse() * p;
         Vector object_normal = object_point - Point(0,0,0);
+
+        // transform normal back to world space using inverse transpose matrix
         Vector world_normal = transform.inverse().transpose() * object_normal;
         world_normal.w = 0;
         return world_normal.normalize();

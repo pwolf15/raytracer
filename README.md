@@ -4,6 +4,10 @@ Dependencies
 
 TODO
 
+Questions
+* Review derivation of ray-sphere intersection code (p.62)
+* Review logic for computing normal (world <-> object space conversion)(p. 82)
+
 Minor
 * review intersection logic (see p. 62)
 * refactor C++ to add rows, cols
