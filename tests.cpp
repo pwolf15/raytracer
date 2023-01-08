@@ -982,7 +982,7 @@ TEST(Spheres, NormalAt)
   n = s.normal_at(Point(0,0,1));
   CHECK(Vector(0,0,1) == n);
   n = s.normal_at(Point(sqrt(3)/3, sqrt(3)/3, sqrt(3)/3));
-  CHECK(Vector(sqrt(3)/3,sqrt(3)/3,sqrt(3)/3) == n);
+  CHECK(Vector(sqrt(3)/3,sqrt(3)/3,sqrt(3)/3) == n.normalize());
 }
 
 int main(int ac, char** av)
