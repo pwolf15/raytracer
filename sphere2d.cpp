@@ -3,6 +3,7 @@
 #include "Canvas.h"
 #include "Ray.h"
 #include "Sphere.h"
+#include "Transformations.h"
 
 int main()
 {
@@ -18,6 +19,18 @@ int main()
     Canvas c(100, 100);
 
     Sphere s;
+
+    // some experiments
+
+    // shrink along y
+    // s.set_transform(scaling(1, 0.5, 1));
+    // shrink along x
+    // s.set_transform(scaling(0.5,1,1));
+    // shrink and rotate
+    // const float PI = 3.1415926535;
+    // s.set_transform(rotation_z(PI/4) * scaling(0.5,1,1));
+    // shrink and skew it
+    s.set_transform(shearing(1,0,0,0,0,0)*scaling(0.5,1,1));
 
     int numHits = 0;
 
