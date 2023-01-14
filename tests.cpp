@@ -9,6 +9,7 @@
 #include "Transformations.h"
 #include "Ray.h"
 #include "Sphere.h"
+#include "PointLight.h"
 
 #include <fstream>
 #include <iostream>
@@ -1014,6 +1015,18 @@ TEST(Vector, Reflect)
   n = Vector(sqrt(2)/2,sqrt(2)/2, 0);
   r = v.reflect(n);
   TUPLES_EQUAL(Vector(1,0,0),r);
+}
+
+TEST_GROUP(Lights)
+{
+
+};
+
+TEST(Lights, PointLight)
+{
+  PointLight light(Color(1,1,1), Point(0,0,0));
+  CHECK(Color(1,1,1) == light.intensity);
+  CHECK(Point(0,0,0) == light.position);
 }
 
 int main(int ac, char** av)
