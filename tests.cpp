@@ -10,6 +10,7 @@
 #include "Ray.h"
 #include "Sphere.h"
 #include "PointLight.h"
+#include "Material.h"
 
 #include <fstream>
 #include <iostream>
@@ -1027,6 +1028,22 @@ TEST(Lights, PointLight)
   PointLight light(Color(1,1,1), Point(0,0,0));
   CHECK(Color(1,1,1) == light.intensity);
   CHECK(Point(0,0,0) == light.position);
+}
+
+TEST_GROUP(Material)
+{
+
+};
+
+TEST(Material, Material)
+{
+  Material m(Color(1,1,1), 0.1, 0.9, 0.9, 200.0);
+  CHECK(Color(1,1,1) == m.color);
+  DOUBLES_EQUAL(0.1, m.ambient, 1e-3);
+  DOUBLES_EQUAL(0.9, m.diffuse, 1e-3);
+  DOUBLES_EQUAL(0.9, m.specular, 1e-3);
+  DOUBLES_EQUAL(200, m.shininess, 1e-3);
+  DOUBLES_EQUAL(0.1, m.ambient, 1e-3);
 }
 
 int main(int ac, char** av)
