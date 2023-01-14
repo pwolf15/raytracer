@@ -1046,6 +1046,17 @@ TEST(Material, Material)
   DOUBLES_EQUAL(0.1, m.ambient, 1e-3);
 }
 
+TEST(Spheres, Material)
+{
+  Sphere s;
+  Material m;
+  CHECK(Material() == s.material);
+
+  m.ambient = 1;
+  s.material = m;
+  CHECK(m == s.material);
+}
+
 int main(int ac, char** av)
 {
    return CommandLineTestRunner::RunAllTests(ac, av);
