@@ -1072,6 +1072,27 @@ TEST(Material, Phong)
   Color result = lighting(m, light, position, eyev, normalv);
   std::cout << "Result: " << result << std::endl;
   CHECK(Color(1.9,1.9,1.9) == result);
+
+  eyev = Vector(0,sqrt(2)/2,-sqrt(2)/2);
+  result = lighting(m, light, position, eyev, normalv);
+  CHECK(Color(1.0,1.0,1.0) == result);
+  
+  eyev = Vector(0,0,-1);
+  light = PointLight(Color(1,1,1), Point(0,10,-10));
+  result = lighting(m, light, position, eyev, normalv);
+  CHECK(Color(0.7364,0.7364,0.7364) == result);
+
+  eyev = Vector(0,-sqrt(2)/2,-sqrt(2)/2);
+  normalv = Vector(0,0,-1);
+  light = PointLight(Color(1,1,1), Point(0,10,-10));
+  result = lighting(m, light, position, eyev, normalv);
+  TUPLES_EQUAL(Color(1.6364,1.6364,1.6364), result);
+
+  eyev = Vector(0,0,-1);
+  normalv = Vector(0,0,-1);
+light = PointLight(Color(1,1,1), Point(0,0,10));
+  result = lighting(m, light, position, eyev, normalv);
+  TUPLES_EQUAL(Color(0.1,0.1,0.1), result);
 }
 
 int main(int ac, char** av)
