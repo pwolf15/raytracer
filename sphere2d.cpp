@@ -4,6 +4,8 @@
 #include "Ray.h"
 #include "Sphere.h"
 #include "Transformations.h"
+#include "PointLight.h"
+#include "Lighting.h"
 
 int main()
 {
@@ -16,9 +18,16 @@ int main()
     float pixel_size = wall_size / canvas_width;
     float half = wall_size / 2;
 
-    Canvas c(100, 100);
+    Canvas c(500, 500);
 
     Sphere s;
+    s.material.color = Color(1,0.2,1);
+    s.material.ambient = 0.1;
+    s.material.diffuse = 0.9;
+    s.material.specular = 0.9;
+    s.material.shininess = 200.0;
+
+    PointLight light(Color(1,1,1), Point(-10,10,-10));
 
     // some experiments
 
@@ -30,7 +39,7 @@ int main()
     // const float PI = 3.1415926535;
     // s.set_transform(rotation_z(PI/4) * scaling(0.5,1,1));
     // shrink and skew it
-    s.set_transform(shearing(1,0,0,0,0,0)*scaling(0.5,1,1));
+    // s.set_transform(shearing(1,0,0,0,0,0)*scaling(0.5,1,1));
 
     int numHits = 0;
 
@@ -42,7 +51,8 @@ int main()
             // note, for y, greater i corresponds to lesser y in coord space
             // for this reason, we subtract from half (largest wall y coord)
             Point wallPoint(j*pixel_size-half, half-i*pixel_size, wall_z);
-            Ray r(eye_origin, Vector(wallPoint-eye_origin).normalize());
+            Vector eyev = Vector(wallPoint-eye_origin).normalize();
+            Ray r(eye_origin, eyev);
         
             // obtain intersections for given ray
             // if hit occurs, update the pixel color
@@ -50,7 +60,10 @@ int main()
             std::optional<Intersection> hitPoint = hit(intersections);
             if (hitPoint.has_value())
             {
-                c.write_pixel(i, j, Color(1.0,0.0,0.0));
+                Point p = r.position(hitPoint->t); // retreive point of interesection
+                Vector normal = hitPoint->object->normal_at(p);
+                Color color = lighting(hitPoint->object->material, light, p, eyev, normal);
+                c.write_pixel(i, j, color);
                 numHits++;
             }
         }

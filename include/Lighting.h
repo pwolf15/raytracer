@@ -14,8 +14,6 @@ Color lighting(Material material, PointLight light, Point point, Vector eyev, Ve
     Vector lightv = Vector(light.position - point).normalize();
 
     Color ambient = effective_color * material.ambient;
-    std::cout << "Effective color: " << effective_color << std::endl;
-    std::cout << "Material ambient: " << material.ambient << std::endl;
     Color diffuse(0.0, 0.0, 0.0), specular(0.0,0.0,0.0);
 
     float light_dot_normal = lightv.dot(normalv);
@@ -39,10 +37,6 @@ Color lighting(Material material, PointLight light, Point point, Vector eyev, Ve
             specular = light.intensity * material.specular * factor;
         }
     }
-
-    std::cout << "Ambient: " << ambient << std::endl;
-    std::cout << "Diffuse: " << diffuse << std::endl;
-    std::cout << "Specular: " << specular << std::endl;
 
     return ambient + diffuse + specular;
 }
