@@ -11,14 +11,14 @@ int main()
 {
     Point eye_origin(0,0,-5);
 
-    int canvas_width = 100;
-    int canvas_height = 100;
+    int canvas_width = 200;
+    int canvas_height = 200;
     float wall_z = 10;
     float wall_size = 7.0;
     float pixel_size = wall_size / canvas_width;
     float half = wall_size / 2;
 
-    Canvas c(500, 500);
+    Canvas c(canvas_width, canvas_height);
 
     Sphere s;
     s.material.color = Color(1,0.2,1);
@@ -62,7 +62,7 @@ int main()
             {
                 Point p = r.position(hitPoint->t); // retreive point of interesection
                 Vector normal = hitPoint->object->normal_at(p);
-                Color color = lighting(hitPoint->object->material, light, p, eyev, normal);
+                Color color = lighting(hitPoint->object->material, light, p, -eyev, normal);
                 c.write_pixel(i, j, color);
                 numHits++;
             }
