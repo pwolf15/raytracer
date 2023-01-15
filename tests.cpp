@@ -11,6 +11,7 @@
 #include "Sphere.h"
 #include "PointLight.h"
 #include "Material.h"
+#include "Lighting.h"
 
 #include <fstream>
 #include <iostream>
@@ -1055,6 +1056,22 @@ TEST(Spheres, Material)
   m.ambient = 1;
   s.material = m;
   CHECK(m == s.material);
+}
+
+TEST(Material, Phong)
+{
+  Material m;
+  m.ambient = 0.1;
+  m.diffuse = 0.9;
+  m.specular = 0.9;
+  m.shininess = 200.0;
+  m.color = Color(1,1,1);
+  Point position(0,0,0);
+  Vector eyev(0,0,-1), normalv(0,0,-1);
+  PointLight light(Color(1,1,1), Point(0,0,-10));
+  Color result = lighting(m, light, position, eyev, normalv);
+  std::cout << "Result: " << result << std::endl;
+  CHECK(Color(1.9,1.9,1.9) == result);
 }
 
 int main(int ac, char** av)

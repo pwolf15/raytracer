@@ -3,6 +3,7 @@
     "cmath": "cpp",
     "vector": "cpp",
     "iostream": "cpp",
-    "optional": "cpp"
+    "optional": "cpp",
+    "__locale": "cpp"
   }
 }
