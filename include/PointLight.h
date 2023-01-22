@@ -12,6 +12,14 @@ public:
 
     }
 
+    bool operator==(PointLight const& rhs) const
+    {
+        double th = 1e-5;
+        
+        return intensity == rhs.intensity && 
+               position == rhs.position;
+    }
+    
     Color intensity;
     Point position;
 };

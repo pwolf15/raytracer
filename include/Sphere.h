@@ -61,6 +61,15 @@ public:
         return world_normal.normalize();
     }
 
+    bool operator==(Sphere const& rhs) const
+    {
+        double th = 1e-5;
+        
+        return transform == rhs.transform && 
+            material == rhs.material;
+    }
+
+
     Matrix transform;
     Material material;
 private:
