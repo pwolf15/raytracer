@@ -1027,7 +1027,7 @@ TEST_GROUP(Lights)
 
 TEST(Lights, PointLight)
 {
-  PointLight light(Color(1,1,1), Point(0,0,0));
+  PointLight light(Point(0,0,0), Color(1,1,1));
   CHECK(Color(1,1,1) == light.intensity);
   CHECK(Point(0,0,0) == light.position);
 }
@@ -1069,7 +1069,7 @@ TEST(Material, Phong)
   m.color = Color(1,1,1);
   Point position(0,0,0);
   Vector eyev(0,0,-1), normalv(0,0,-1);
-  PointLight light(Color(1,1,1), Point(0,0,-10));
+  PointLight light(Point(0,0,-10), Color(1,1,1));
   Color result = lighting(m, light, position, eyev, normalv);
   std::cout << "Result: " << result << std::endl;
   CHECK(Color(1.9,1.9,1.9) == result);
@@ -1079,19 +1079,19 @@ TEST(Material, Phong)
   CHECK(Color(1.0,1.0,1.0) == result);
   
   eyev = Vector(0,0,-1);
-  light = PointLight(Color(1,1,1), Point(0,10,-10));
+  light = PointLight(Point(0,10,-10), Color(1,1,1));
   result = lighting(m, light, position, eyev, normalv);
   CHECK(Color(0.7364,0.7364,0.7364) == result);
 
   eyev = Vector(0,-sqrt(2)/2,-sqrt(2)/2);
   normalv = Vector(0,0,-1);
-  light = PointLight(Color(1,1,1), Point(0,10,-10));
+  light = PointLight(Point(0,10,-10), Color(1,1,1));
   result = lighting(m, light, position, eyev, normalv);
   TUPLES_EQUAL(Color(1.6364,1.6364,1.6364), result);
 
   eyev = Vector(0,0,-1);
   normalv = Vector(0,0,-1);
-  light = PointLight(Color(1,1,1), Point(0,0,10));
+  light = PointLight(Point(0,0,10), Color(1,1,1));
   result = lighting(m, light, position, eyev, normalv);
   TUPLES_EQUAL(Color(0.1,0.1,0.1), result);
 }
@@ -1107,7 +1107,7 @@ TEST(World, World)
   CHECK(w.m_spheres.empty());
   CHECK(w.m_lights.empty());
 
-  PointLight light(Color(1,1,1), Point(-10,10,-10));
+  PointLight light(Point(-10,10,-10), Color(1,1,1));
   
   Sphere s1;
   Material m1(Color(0.8,1.0,0.6),0,0.7,0.2);

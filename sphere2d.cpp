@@ -27,7 +27,7 @@ int main()
     s.material.specular = 0.9;
     s.material.shininess = 200.0;
 
-    PointLight light(Color(1,1,1), Point(-10,10,-10));
+    PointLight light(Point(-10,10,-10), Color(1,1,1));
 
     // some experiments
 

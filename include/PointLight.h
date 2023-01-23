@@ -7,7 +7,7 @@
 class PointLight
 {
 public:
-    PointLight(Color intensity, Point position): intensity(intensity), position(position)
+    PointLight(Point position, Color intensity): position(position), intensity(intensity)
     {
 
     }

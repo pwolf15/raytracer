@@ -18,7 +18,7 @@ public:
 
 World default_world()
 {
-  PointLight light(Color(1,1,1), Point(-10,10,-10));
+  PointLight light(Point(-10,10,-10), Color(1,1,1));
   Sphere s1;
   Material m1(Color(0.8,1.0,0.6),0,0.7,0.2);
   s1.material = m1;
