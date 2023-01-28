@@ -13,6 +13,7 @@
 #include "Material.h"
 #include "Lighting.h"
 #include "World.h"
+#include "Computations.h"
 
 #include <fstream>
 #include <iostream>
@@ -1138,6 +1139,19 @@ TEST(World, IntersectWorld)
   DOUBLES_EQUAL(4.5, xs[1].t, 0);
   DOUBLES_EQUAL(5.5, xs[2].t, 0);
   DOUBLES_EQUAL(6, xs[3].t, 0);
+}
+
+TEST(Intersection, Computations)
+{
+  Ray r(Point(0, 0, -5), Vector(0,0,1));
+  Sphere shape;
+  Intersection i(4, &shape);
+
+  Computations comps = prepare_computations(i, r);
+  DOUBLES_EQUAL(i.t, comps.m_t, 0);
+  CHECK(Point(0,0,-1) == comps.m_point);
+  CHECK(Vector(0,0,-1) == comps.m_eyev);
+  CHECK(Vector(0,0,-1) == comps.m_normalv);
 }
 
 int main(int ac, char** av)

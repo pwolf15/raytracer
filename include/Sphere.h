@@ -8,6 +8,8 @@
 #include "Intersection.h"
 #include "Material.h"
 
+class Intersection;
+
 class Sphere
 {
 public:
