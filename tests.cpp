@@ -1152,7 +1152,16 @@ TEST(Intersection, Computations)
   CHECK(Point(0,0,-1) == comps.m_point);
   CHECK(Vector(0,0,-1) == comps.m_eyev);
   CHECK(Vector(0,0,-1) == comps.m_normalv);
+
+  r.origin = Point(0,0,0);
+  i = Intersection(1, &shape);
+  comps = prepare_computations(i, r);
+  DOUBLES_EQUAL(i.t, comps.m_t, 1);
+  CHECK(Point(0,0,1) == comps.m_point);
+  CHECK(Vector(0,0,-1) == comps.m_eyev);
+  CHECK(Vector(0,0,-1) == comps.m_normalv);
 }
+
 
 int main(int ac, char** av)
 {
