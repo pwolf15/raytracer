@@ -6,7 +6,7 @@
 class Material 
 {
 public:
-    Material(Color color = Color(0.0,0.0,0.0), float ambient = 0.0, float diffuse = 0.0, float specular = 0.0, float shininess = 0.0):
+    Material(Color color = Color(1.0,1.0,1.0), float ambient = 0.1, float diffuse = 0.9, float specular = 0.9, float shininess = 200.0):
         color(color), ambient(ambient), diffuse(diffuse), specular(specular), shininess(shininess)
     {
 
