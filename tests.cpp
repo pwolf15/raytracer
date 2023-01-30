@@ -1141,6 +1141,19 @@ TEST(World, IntersectWorld)
   DOUBLES_EQUAL(6, xs[3].t, 0);
 }
 
+TEST(World, ShadeHit)
+{
+  World w = default_world();
+  Ray r(Point(0,0,-5), Vector(0,0,1));
+  Sphere& shape = w.m_spheres[0];
+  Intersection i(4, &shape);
+  Computations comps = prepare_computations(i, r);
+  Color c = shade_hit(w, comps);
+
+  std::cout << c << std::endl;
+  CHECK(Color(0.38066,0.47583,0.2855) == c);
+}
+
 TEST(Intersection, Computations)
 {
   Ray r(Point(0, 0, -5), Vector(0,0,1));

@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "Computations.h"
 #include "Intersection.h"
 #include "Sphere.h"
 #include "PointLight.h"
@@ -48,5 +49,14 @@ std::vector<Intersection> intersect_world(World w, Ray r)
 
     return intersections;
 }
+
+Color shade_hit(World world, Computations comps)
+{
+    return lighting(comps.m_object->material,
+        world.m_lights[0],
+        comps.m_point, comps.m_eyev,
+        comps.m_normalv);
+}
+
 
 #endif // WORLD_H
