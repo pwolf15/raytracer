@@ -58,5 +58,21 @@ Color shade_hit(World world, Computations comps)
         comps.m_normalv);
 }
 
+Color color_at(World world, Ray r)
+{
+    std::vector<Intersection> intersections = intersect_world(world, r);
+    std::optional<Intersection> intersection = hit(intersections);
+    
+    if (!intersection.has_value())
+    {
+        return Color(0,0,0);
+    }
+
+    std::cout << "HERE!" << std::endl;
+
+    Computations comps = prepare_computations(intersection.value(), r);
+    std::cout << "Here2" << std::endl;
+    return shade_hit(world, comps);
+}
 
 #endif // WORLD_H

@@ -1162,6 +1162,26 @@ TEST(World, ShadeHit)
   CHECK(Color(0.90498,0.90498,0.90498) == c);
 }
 
+TEST(World, ColorAt)
+{
+  World w = default_world();
+  Ray r(Point(0,0,-5),Vector(0,1,0));
+  Color c = color_at(w, r);
+  CHECK(Color(0,0,0) == c);
+
+  r = Ray(Point(0,0,-5), Vector(0,0,1));
+  c = color_at(w, r);
+  CHECK(Color(0.38066,0.47583,0.2855) == c);
+
+  // Sphere outer = w.m_spheres[0];
+  // outer.material.ambient = 1;
+  // Sphere inner = w.m_spheres[1];
+  // inner.material.ambient = 1;
+  // r = Ray(Point(0,0,0.75), Vector(0,0,-1));
+  // c = color_at(w, r);
+  // CHECK(inner.material.color == c);
+}
+
 TEST(Intersection, Computations)
 {
   Ray r(Point(0, 0, -5), Vector(0,0,1));
