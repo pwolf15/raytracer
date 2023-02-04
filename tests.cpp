@@ -1150,8 +1150,16 @@ TEST(World, ShadeHit)
   Computations comps = prepare_computations(i, r);
   Color c = shade_hit(w, comps);
 
-  std::cout << c << std::endl;
   CHECK(Color(0.38066,0.47583,0.2855) == c);
+
+  w.m_lights[0] = PointLight(Point(0,0.25,0),Color(1,1,1));
+  r = Ray(Point(0,0,0), Vector(0,0,1));
+  shape = w.m_spheres[1];
+  i = Intersection(0.5, &shape);
+  comps = prepare_computations(i, r);
+  c = shade_hit(w, comps);
+  
+  CHECK(Color(0.90498,0.90498,0.90498) == c);
 }
 
 TEST(Intersection, Computations)
