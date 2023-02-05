@@ -856,8 +856,8 @@ TEST(Rays, Intersect)
   CHECK_EQUAL(2, xs.size());
   DOUBLES_EQUAL(4.0, xs[0].t, 0);
   DOUBLES_EQUAL(6.0, xs[1].t, 0);
-  // CHECK_EQUAL(s == xs[0].object);
-  // CHECK_EQUAL(s xs[1].object);
+  CHECK(*s == *(xs[0].object));
+  CHECK(*s == *(xs[1].object));
 
   Ray ray2(Point({0,1,-5}), Vector({0,0,1}));
   xs = intersect(s, ray2);
@@ -909,7 +909,7 @@ TEST(Intersection, Intersection)
   Intersection i(3.5, s);
 
   DOUBLES_EQUAL(3.5, i.t, 0);
-  // CHECK(s == i.object);
+  CHECK(*s == *(i.object));
 }
 
 TEST(Intersection, Intersections)
@@ -1125,9 +1125,8 @@ TEST(World, World)
 
   // objects
   CHECK_EQUAL(2, w.m_spheres.size());
-  // CHECK(w.m_spheres[0] == s1);
-  // CHECK(w.m_spheres[1] == s2);
-
+  CHECK(*w.m_spheres[0] == *s1);
+  CHECK(*w.m_spheres[1] == *s2);
 }
 
 TEST(World, IntersectWorld)
@@ -1174,13 +1173,13 @@ TEST(World, ColorAt)
   c = color_at(w, r);
   CHECK(Color(0.38066,0.47583,0.2855) == c);
 
-  // Sphere outer = w.m_spheres[0];
-  // outer.material.ambient = 1;
-  // Sphere inner = w.m_spheres[1];
-  // inner.material.ambient = 1;
-  // r = Ray(Point(0,0,0.75), Vector(0,0,-1));
-  // c = color_at(w, r);
-  // CHECK(inner.material.color == c);
+  std::shared_ptr<Sphere> outer = w.m_spheres[0];
+  outer->material.ambient = 1;
+  std::shared_ptr<Sphere> inner = w.m_spheres[1];
+  inner->material.ambient = 1;
+  r = Ray(Point(0,0,0.75), Vector(0,0,-1));
+  c = color_at(w, r);
+  CHECK(inner->material.color == c);
 }
 
 TEST(Intersection, Computations)
