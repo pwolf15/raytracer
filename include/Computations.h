@@ -27,23 +27,4 @@ public:
 private:
 };
 
-Computations prepare_computations(Intersection intersection, Ray ray)
-{
-    float t = intersection.t;
-    Sphere* obj = intersection.object;
-    Point pos = ray.position(t);
-    Vector eyev = -ray.direction, normalv = obj->normal_at(pos);
-    bool inside = false;
-
-    // check if intersection occurs on inside of object
-    if (normalv.dot(eyev) < 0)
-    {
-        inside = true;
-        normalv = -normalv;
-    }
-    
-    Computations comps(t, obj, pos, eyev, normalv, inside);
-    return comps;
-}
-
 #endif

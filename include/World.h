@@ -33,46 +33,4 @@ World default_world()
   return w;
 }
 
-std::vector<Intersection> intersect_world(World w, Ray r)
-{
-    std::vector<Intersection> intersections;
-    for (auto& sphere: w.m_spheres)
-    {
-        const auto cur_intersections = sphere.intersect(r);
-        std::copy(cur_intersections.begin(), cur_intersections.end(), 
-            std::back_inserter(intersections));
-    }
-
-    std::sort(intersections.begin(), intersections.end(), [](auto& a, auto& b) {
-        return a.t < b.t;
-    });
-
-    return intersections;
-}
-
-Color shade_hit(World world, Computations comps)
-{
-    return lighting(comps.m_object->material,
-        world.m_lights[0],
-        comps.m_point, comps.m_eyev,
-        comps.m_normalv);
-}
-
-Color color_at(World world, Ray r)
-{
-    std::vector<Intersection> intersections = intersect_world(world, r);
-    std::optional<Intersection> intersection = hit(intersections);
-    
-    if (!intersection.has_value())
-    {
-        return Color(0,0,0);
-    }
-
-    std::cout << "HERE!" << std::endl;
-
-    Computations comps = prepare_computations(intersection.value(), r);
-    std::cout << "Here2" << std::endl;
-    return shade_hit(world, comps);
-}
-
 #endif // WORLD_H

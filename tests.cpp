@@ -14,6 +14,7 @@
 #include "Lighting.h"
 #include "World.h"
 #include "Computations.h"
+#include "Utils.h"
 
 #include <fstream>
 #include <iostream>

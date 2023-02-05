@@ -6,6 +6,7 @@
 #include "Transformations.h"
 #include "PointLight.h"
 #include "Lighting.h"
+#include "Utils.h"
 
 int main()
 {
