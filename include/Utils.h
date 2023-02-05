@@ -38,12 +38,38 @@ Computations prepare_computations(Intersection intersection, Ray ray)
     return comps;
 }
 
+std::vector<Intersection> intersect(Sphere& s, Ray r)
+{
+    std::vector<Intersection> ts;
+
+    Matrix inv = s.transform.inverse();
+    Ray ray2 = r.transform(inv);
+    Vector sphere_to_ray = ray2.origin - Point(0, 0, 0);
+    float a = ray2.direction.dot(ray2.direction);
+    float b = 2 * ray2.direction.dot(sphere_to_ray);
+    float c = sphere_to_ray.dot(sphere_to_ray) - 1;
+    float discriminant = pow(b,2) - 4*a*c;
+
+    if (discriminant < 0)
+    {
+        return ts;
+    }
+
+    float t1 = (-b - sqrt(discriminant)) / (2 * a);
+    float t2 = (-b + sqrt(discriminant)) / (2 * a);
+
+    ts.push_back(Intersection(t1, &s));
+    ts.push_back(Intersection(t2, &s));
+    
+    return ts;
+}
+
 std::vector<Intersection> intersect_world(World w, Ray r)
 {
     std::vector<Intersection> intersections;
     for (auto& sphere: w.m_spheres)
     {
-        const auto cur_intersections = sphere.intersect(r);
+        const auto cur_intersections = intersect(sphere, r);
         std::copy(cur_intersections.begin(), cur_intersections.end(), 
             std::back_inserter(intersections));
     }

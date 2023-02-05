@@ -57,7 +57,7 @@ int main()
         
             // obtain intersections for given ray
             // if hit occurs, update the pixel color
-            std::vector<Intersection> intersections = s.intersect(r);
+            std::vector<Intersection> intersections = intersect(s,r);
             std::optional<Intersection> hitPoint = hit(intersections);
             if (hitPoint.has_value())
             {

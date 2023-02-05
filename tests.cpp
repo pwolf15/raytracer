@@ -852,7 +852,7 @@ TEST(Rays, Intersect)
 {
   Ray ray(Point({0,0,-5}), Vector({0,0,1}));
   Sphere s;
-  std::vector<Intersection> xs = s.intersect(ray);
+  std::vector<Intersection> xs = intersect(s, ray);
   CHECK_EQUAL(2, xs.size());
   DOUBLES_EQUAL(4.0, xs[0].t, 0);
   DOUBLES_EQUAL(6.0, xs[1].t, 0);
@@ -860,23 +860,23 @@ TEST(Rays, Intersect)
   CHECK_EQUAL(&s, xs[1].object);
 
   Ray ray2(Point({0,1,-5}), Vector({0,0,1}));
-  xs = s.intersect(ray2);
+  xs = intersect(s, ray2);
   CHECK_EQUAL(2, xs.size());
   DOUBLES_EQUAL(5.0, xs[0].t, 0);
   DOUBLES_EQUAL(5.0, xs[1].t, 0);
 
   Ray ray3(Point({0,2,-5}), Vector({0,0,1}));
-  xs = s.intersect(ray3);
+  xs = intersect(s, ray3);
   CHECK_EQUAL(0, xs.size());
 
   Ray ray4(Point({0,0,0}), Vector({0,0,1}));
-  xs = s.intersect(ray4);
+  xs = intersect(s, ray4);
   CHECK_EQUAL(2, xs.size());
   DOUBLES_EQUAL(-1.0, xs[0].t, 0);
   DOUBLES_EQUAL(1.0, xs[1].t, 0);
 
   Ray ray5(Point({0,0,5}), Vector({0,0,1}));
-  xs = s.intersect(ray5);
+  xs = intersect(s, ray5);
   CHECK_EQUAL(2, xs.size());
   DOUBLES_EQUAL(-6.0, xs[0].t, 0);
   DOUBLES_EQUAL(-4.0, xs[1].t, 0);
@@ -976,13 +976,13 @@ TEST(Spheres, Intersect)
   Ray r(Point(0,0,-5), Vector(0,0,1));
   Sphere s;
   s.set_transform(scaling(2,2,2));
-  std::vector<Intersection> xs = s.intersect(r);
+  std::vector<Intersection> xs = intersect(s, r);
   CHECK_EQUAL(2, xs.size());
   DOUBLES_EQUAL(3, xs[0].t, 0);
   DOUBLES_EQUAL(7, xs[1].t, 0);
 
   s.set_transform(translation(5,0,0));
-  xs = s.intersect(r);
+  xs = intersect(s, r);
   CHECK_EQUAL(0, xs.size());
 }
 
