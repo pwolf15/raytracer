@@ -9,10 +9,10 @@ class Intersection
 {
 public:
 
-    Intersection(float t, Sphere& s): t(t), object(s) {}
+    Intersection(float t, std::shared_ptr<Sphere> s): t(t), object(s) {}
 
     float t;
-    Sphere object;
+    std::shared_ptr<Sphere> object;
 private:
 
 };

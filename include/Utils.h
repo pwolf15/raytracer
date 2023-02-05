@@ -22,9 +22,9 @@ std::optional<Intersection> hit(std::vector<Intersection>& xs)
 Computations prepare_computations(Intersection intersection, Ray ray)
 {
     float t = intersection.t;
-    Sphere obj = intersection.object;
+    std::shared_ptr<Sphere> obj = intersection.object;
     Point pos = ray.position(t);
-    Vector eyev = -ray.direction, normalv = obj.normal_at(pos);
+    Vector eyev = -ray.direction, normalv = obj->normal_at(pos);
     bool inside = false;
 
     // check if intersection occurs on inside of object
@@ -38,11 +38,11 @@ Computations prepare_computations(Intersection intersection, Ray ray)
     return comps;
 }
 
-std::vector<Intersection> intersect(Sphere& s, Ray r)
+std::vector<Intersection> intersect(std::shared_ptr<Sphere> s, Ray r)
 {
     std::vector<Intersection> ts;
 
-    Matrix inv = s.transform.inverse();
+    Matrix inv = s->transform.inverse();
     Ray ray2 = r.transform(inv);
     Vector sphere_to_ray = ray2.origin - Point(0, 0, 0);
     float a = ray2.direction.dot(ray2.direction);
@@ -83,7 +83,7 @@ std::vector<Intersection> intersect_world(World w, Ray r)
 
 Color shade_hit(World world, Computations comps)
 {
-    return lighting(comps.m_object.material,
+    return lighting(comps.m_object->material,
         world.m_lights[0],
         comps.m_point, comps.m_eyev,
         comps.m_normalv);
