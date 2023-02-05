@@ -5,10 +5,8 @@
 
 #include "Vector.h"
 #include "Ray.h"
-#include "Intersection.h"
 #include "Material.h"
 
-class Intersection;
 
 class Sphere
 {

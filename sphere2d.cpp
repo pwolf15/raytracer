@@ -62,8 +62,8 @@ int main()
             if (hitPoint.has_value())
             {
                 Point p = r.position(hitPoint->t); // retreive point of interesection
-                Vector normal = hitPoint->object->normal_at(p);
-                Color color = lighting(hitPoint->object->material, light, p, -eyev, normal);
+                Vector normal = hitPoint->object.normal_at(p);
+                Color color = lighting(hitPoint->object.material, light, p, -eyev, normal);
                 c.write_pixel(i, j, color);
                 numHits++;
             }

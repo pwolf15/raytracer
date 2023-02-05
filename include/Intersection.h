@@ -5,16 +5,14 @@
 
 #include "Sphere.h"
 
-class Sphere;
-
 class Intersection
 {
 public:
 
-    Intersection(float t, Sphere* s): t(t), object(s) {}
+    Intersection(float t, Sphere& s): t(t), object(s) {}
 
     float t;
-    Sphere* object;
+    Sphere object;
 private:
 
 };

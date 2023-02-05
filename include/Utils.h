@@ -22,9 +22,9 @@ std::optional<Intersection> hit(std::vector<Intersection>& xs)
 Computations prepare_computations(Intersection intersection, Ray ray)
 {
     float t = intersection.t;
-    Sphere* obj = intersection.object;
+    Sphere obj = intersection.object;
     Point pos = ray.position(t);
-    Vector eyev = -ray.direction, normalv = obj->normal_at(pos);
+    Vector eyev = -ray.direction, normalv = obj.normal_at(pos);
     bool inside = false;
 
     // check if intersection occurs on inside of object
@@ -58,8 +58,8 @@ std::vector<Intersection> intersect(Sphere& s, Ray r)
     float t1 = (-b - sqrt(discriminant)) / (2 * a);
     float t2 = (-b + sqrt(discriminant)) / (2 * a);
 
-    ts.push_back(Intersection(t1, &s));
-    ts.push_back(Intersection(t2, &s));
+    ts.push_back(Intersection(t1, s));
+    ts.push_back(Intersection(t2, s));
     
     return ts;
 }
@@ -83,7 +83,7 @@ std::vector<Intersection> intersect_world(World w, Ray r)
 
 Color shade_hit(World world, Computations comps)
 {
-    return lighting(comps.m_object->material,
+    return lighting(comps.m_object.material,
         world.m_lights[0],
         comps.m_point, comps.m_eyev,
         comps.m_normalv);
@@ -93,16 +93,12 @@ Color color_at(World world, Ray r)
 {
     std::vector<Intersection> intersections = intersect_world(world, r);
     std::optional<Intersection> intersection = hit(intersections);
-    
+
     if (!intersection.has_value())
     {
         return Color(0,0,0);
     }
-
-    std::cout << "HERE!" << std::endl;
-
     Computations comps = prepare_computations(intersection.value(), r);
-    std::cout << "Here2" << std::endl;
     return shade_hit(world, comps);
 }
 

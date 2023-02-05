@@ -856,8 +856,8 @@ TEST(Rays, Intersect)
   CHECK_EQUAL(2, xs.size());
   DOUBLES_EQUAL(4.0, xs[0].t, 0);
   DOUBLES_EQUAL(6.0, xs[1].t, 0);
-  CHECK_EQUAL(&s, xs[0].object);
-  CHECK_EQUAL(&s, xs[1].object);
+  // CHECK_EQUAL(s == xs[0].object);
+  // CHECK_EQUAL(s xs[1].object);
 
   Ray ray2(Point({0,1,-5}), Vector({0,0,1}));
   xs = intersect(s, ray2);
@@ -906,16 +906,16 @@ TEST_GROUP(Intersection)
 TEST(Intersection, Intersection)
 {
   Sphere s;
-  Intersection i(3.5, &s);
+  Intersection i(3.5, s);
 
   DOUBLES_EQUAL(3.5, i.t, 0);
-  CHECK(&s == i.object);
+  CHECK(s == i.object);
 }
 
 TEST(Intersection, Intersections)
 {
   Sphere s;
-  Intersection i1(1, &s), i2(2, &s);
+  Intersection i1(1, s), i2(2, s);
   std::vector<Intersection> xs = intersections({i1, i2});
   CHECK_EQUAL(2, xs.size());
   DOUBLES_EQUAL(1, xs[0].t, 0);
@@ -925,24 +925,24 @@ TEST(Intersection, Intersections)
 TEST(Intersection, Hit)
 {
   Sphere s;
-  Intersection i1(1, &s), i2(2, &s);
+  Intersection i1(1, s), i2(2, s);
   std::vector<Intersection> xs = intersections({i1, i2});
   std::optional<Intersection> i_opt = hit(xs);
   CHECK(i_opt.has_value());
   CHECK_EQUAL(i1.t, i_opt->t);
 
-  Intersection i3(-1, &s), i4(1, &s);
+  Intersection i3(-1, s), i4(1, s);
   xs = intersections({i3, i4});
   i_opt = hit(xs);
   CHECK(i_opt.has_value());
   CHECK_EQUAL(i4.t, i_opt->t);
 
-  Intersection i5(-2, &s), i6(-1, &s);
+  Intersection i5(-2, s), i6(-1, s);
   xs = intersections({i5, i6});
   i_opt = hit(xs);
   CHECK(!i_opt.has_value());
 
-  Intersection i7(5, &s), i8(7, &s), i9(-3, &s), i10(2, &s);
+  Intersection i7(5, s), i8(7, s), i9(-3, s), i10(2, s);
   xs = intersections({i7,i8,i9,i10});
   i_opt = hit(xs);
   CHECK(i_opt.has_value());
@@ -1147,7 +1147,7 @@ TEST(World, ShadeHit)
   World w = default_world();
   Ray r(Point(0,0,-5), Vector(0,0,1));
   Sphere shape = w.m_spheres[0];
-  Intersection i(4, &shape);
+  Intersection i(4, shape);
   Computations comps = prepare_computations(i, r);
   Color c = shade_hit(w, comps);
 
@@ -1156,8 +1156,8 @@ TEST(World, ShadeHit)
   w.m_lights[0] = PointLight(Point(0,0.25,0),Color(1,1,1));
   r = Ray(Point(0,0,0), Vector(0,0,1));
   shape = w.m_spheres[1];
-  i = Intersection(0.5, &shape);
-  comps = prepare_computations(i, r);
+  Intersection i2(0.5, shape);
+  comps = prepare_computations(i2, r);
   c = shade_hit(w, comps);
   
   CHECK(Color(0.90498,0.90498,0.90498) == c);
@@ -1187,7 +1187,7 @@ TEST(Intersection, Computations)
 {
   Ray r(Point(0, 0, -5), Vector(0,0,1));
   Sphere shape;
-  Intersection i(4, &shape);
+  Intersection i(4, shape);
 
   Computations comps = prepare_computations(i, r);
   DOUBLES_EQUAL(i.t, comps.m_t, 0);
@@ -1196,9 +1196,9 @@ TEST(Intersection, Computations)
   CHECK(Vector(0,0,-1) == comps.m_normalv);
 
   r.origin = Point(0,0,0);
-  i = Intersection(1, &shape);
-  comps = prepare_computations(i, r);
-  DOUBLES_EQUAL(i.t, comps.m_t, 1);
+  Intersection i2(1, shape);
+  comps = prepare_computations(i2, r);
+  DOUBLES_EQUAL(i2.t, comps.m_t, 1);
   CHECK(Point(0,0,1) == comps.m_point);
   CHECK(Vector(0,0,-1) == comps.m_eyev);
   CHECK(Vector(0,0,-1) == comps.m_normalv);

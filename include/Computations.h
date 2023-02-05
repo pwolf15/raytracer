@@ -8,7 +8,7 @@
 class Computations
 {
 public:
-    Computations(float t, Sphere* object, Point point, Vector eyev, Vector normalv, bool inside):  
+    Computations(float t, Sphere object, Point point, Vector eyev, Vector normalv, bool inside):  
         m_t(t),
         m_object(object),
         m_point(point),
@@ -18,7 +18,7 @@ public:
         {}
 
     float m_t;
-    Sphere* m_object;
+    Sphere m_object;
     Point m_point;
     Vector m_eyev;
     Vector m_normalv;
