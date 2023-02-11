@@ -1203,6 +1203,30 @@ TEST(Intersection, Computations)
   CHECK(Vector(0,0,-1) == comps.m_normalv);
 }
 
+TEST(Transformations, ViewTransform)
+{
+  Point from(0,0,0);
+  Point to(0,0,-1);
+  Vector up(0,1,0);
+  Matrix t = view_transform(from, to, up);
+  Matrix identity({
+    {1,0,0,0},
+    {0,1,0,0},
+    {0,0,1,0},
+    {0,0,0,1}
+  });
+  CHECK(identity == t);
+
+  to = Point(0,0,1);
+  t = view_transform(from, to, up);
+  CHECK(scaling(-1,1,-1) == t);
+
+  from = Point(0,0,8);
+  to = Point(0,0,0);
+  up = Vector(0,1,0);
+  t = view_transform(from, to, up);
+  CHECK(translation(0,0,-8) == t);
+}
 
 int main(int ac, char** av)
 {

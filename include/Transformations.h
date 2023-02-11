@@ -2,6 +2,7 @@
 #define TRANSFORMATIONS_H
 
 #include "Matrix.h"
+#include "Vector.h"
 
 Matrix translation(float x, float y, float z)
 {
@@ -67,6 +68,23 @@ Matrix shearing(float xy, float xz, float yx, float yz, float zx, float zy)
         {0,0,0,1}
     });
     return m;
+}
+
+Matrix view_transform(Point from, Point to, Vector up)
+{
+    Vector forward(to.x - from.x, to.y - from.y, to.z - from.z);
+    forward = forward.normalize();
+    Vector upn = up.normalize();
+    Vector left = forward.cross(upn);
+    Vector true_up = left.cross(forward);
+
+    Matrix orientation({
+        {left.x, left.y, left.z, 0},
+        {true_up.x, true_up.y, true_up.z, 0},
+        {-forward.x, -forward.y, -forward.z, 0},
+        {0, 0, 0, 1}
+    });
+    return orientation * translation(-from.x, -from.y, -from.z);
 }
 
 #endif
