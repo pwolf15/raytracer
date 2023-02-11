@@ -1226,6 +1226,19 @@ TEST(Transformations, ViewTransform)
   up = Vector(0,1,0);
   t = view_transform(from, to, up);
   CHECK(translation(0,0,-8) == t);
+
+  from = Point(1,3,2);
+  to = Point(4,-2,8);
+  up = Vector(1,1,0);
+  t = view_transform(from, to, up);
+
+  Matrix exp({
+    {-0.50709, 0.50709, 0.67612, -2.36643 },
+    { 0.76772, 0.60609, 0.12122, -2.82843 },
+    {-0.35857, 0.59761,-0.71714, 0.00000 },
+    {0.00000, 0.00000, 0.00000, 1.00000 }
+  });
+  CHECK(exp == t);
 }
 
 int main(int ac, char** av)
