@@ -1,12 +1,15 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include "Camera.h"
 #include "Computations.h"
+#include "Lighting.h"
+#include "Transformations.h"
 #include "Intersection.h"
 #include "Ray.h"
 #include "World.h"
 
-std::optional<Intersection> hit(std::vector<Intersection>& xs)
+inline static std::optional<Intersection> hit(std::vector<Intersection>& xs)
 {
     std::vector<Intersection> xs_copy;
     std::copy_if(xs.begin(), xs.end(), std::back_inserter(xs_copy), [](Intersection i) {
@@ -19,7 +22,7 @@ std::optional<Intersection> hit(std::vector<Intersection>& xs)
     return !xs_copy.empty() ? std::optional<std::reference_wrapper<Intersection>>(xs_copy[0]) : std::nullopt;
 }
 
-Computations prepare_computations(Intersection intersection, Ray ray)
+inline static Computations prepare_computations(Intersection intersection, Ray ray)
 {
     float t = intersection.t;
     std::shared_ptr<Sphere> obj = intersection.object;
@@ -38,7 +41,7 @@ Computations prepare_computations(Intersection intersection, Ray ray)
     return comps;
 }
 
-std::vector<Intersection> intersect(std::shared_ptr<Sphere> s, Ray r)
+inline static std::vector<Intersection> intersect(std::shared_ptr<Sphere> s, Ray r)
 {
     std::vector<Intersection> ts;
 
@@ -64,7 +67,7 @@ std::vector<Intersection> intersect(std::shared_ptr<Sphere> s, Ray r)
     return ts;
 }
 
-std::vector<Intersection> intersect_world(World w, Ray r)
+inline static std::vector<Intersection> intersect_world(World w, Ray r)
 {
     std::vector<Intersection> intersections;
     for (auto& sphere: w.m_spheres)
@@ -81,7 +84,7 @@ std::vector<Intersection> intersect_world(World w, Ray r)
     return intersections;
 }
 
-Color shade_hit(World world, Computations comps)
+inline static Color shade_hit(World world, Computations comps)
 {
     return lighting(comps.m_object->material,
         world.m_lights[0],
@@ -89,7 +92,7 @@ Color shade_hit(World world, Computations comps)
         comps.m_normalv);
 }
 
-Color color_at(World world, Ray r)
+inline static Color color_at(World world, Ray r)
 {
     std::vector<Intersection> intersections = intersect_world(world, r);
     std::optional<Intersection> intersection = hit(intersections);
@@ -104,7 +107,7 @@ Color color_at(World world, Ray r)
 
 
 template <class T>
-std::vector<Intersection> intersections(std::initializer_list<T> list)
+inline static std::vector<Intersection> intersections(std::initializer_list<T> list)
 {
     std::vector<Intersection> intersections;
     for (auto elem: list)
@@ -114,5 +117,20 @@ std::vector<Intersection> intersections(std::initializer_list<T> list)
 
     return intersections;
 }
+
+inline static Ray ray_for_pixel(Camera camera, int px, int py)
+{
+    float xoffset = (px + 0.5) * camera.m_pixel_size;
+    float yoffset = (py + 0.5) * camera.m_pixel_size;
+
+    float world_x = camera.m_half_width - xoffset;
+    float world_y = camera.m_half_height - yoffset;
+    Point pixel = camera.m_transform.inverse() * Point(world_x, world_y, -1);
+    Vector origin = camera.m_transform.inverse() * Point(0,0,0);
+    Vector direction = Vector(pixel.x - origin.x, pixel.y - origin.y, pixel.z - origin.z).normalize();
+
+    return Ray(origin, direction);
+}
+
 
 #endif // UTILS_H

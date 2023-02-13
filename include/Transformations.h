@@ -4,7 +4,7 @@
 #include "Matrix.h"
 #include "Vector.h"
 
-Matrix translation(float x, float y, float z)
+static inline Matrix translation(float x, float y, float z)
 {
     Matrix m({
         {1, 0, 0, x},
@@ -15,7 +15,7 @@ Matrix translation(float x, float y, float z)
     return m;
 }
 
-Matrix scaling(float x, float y, float z)
+static inline Matrix scaling(float x, float y, float z)
 {
     Matrix m({
         {x, 0, 0, 0},
@@ -26,7 +26,7 @@ Matrix scaling(float x, float y, float z)
     return m;
 }
 
-Matrix rotation_x(float rad)
+static inline Matrix rotation_x(float rad)
 {
     Matrix m({
         {1,0,0,0},
@@ -37,7 +37,7 @@ Matrix rotation_x(float rad)
     return m;
 }
 
-Matrix rotation_y(float rad)
+static inline Matrix rotation_y(float rad)
 {
     Matrix m({
         {cos(rad),0,sin(rad),0},
@@ -48,7 +48,7 @@ Matrix rotation_y(float rad)
     return m;
 }
 
-Matrix rotation_z(float rad)
+static inline Matrix rotation_z(float rad)
 {
     Matrix m({
         {cos(rad),-sin(rad),0,0},
@@ -59,7 +59,7 @@ Matrix rotation_z(float rad)
     return m;
 }
 
-Matrix shearing(float xy, float xz, float yx, float yz, float zx, float zy)
+static inline Matrix shearing(float xy, float xz, float yx, float yz, float zx, float zy)
 {
     Matrix m({
         {1, xy, xz,0},
@@ -70,7 +70,7 @@ Matrix shearing(float xy, float xz, float yx, float yz, float zx, float zy)
     return m;
 }
 
-Matrix view_transform(Point from, Point to, Vector up)
+static inline Matrix view_transform(Point from, Point to, Vector up)
 {
     Vector forward(to.x - from.x, to.y - from.y, to.z - from.z);
     forward = forward.normalize();

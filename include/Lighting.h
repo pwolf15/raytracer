@@ -7,7 +7,7 @@
 #include "Point.h"
 #include "Vector.h"
 
-Color lighting(Material material, PointLight light, Point point, Vector eyev, Vector normalv)
+static inline Color lighting(Material material, PointLight light, Point point, Vector eyev, Vector normalv)
 {
     Color effective_color = material.color * light.intensity;
     std::cout << "Color: " << material.color << std::endl;

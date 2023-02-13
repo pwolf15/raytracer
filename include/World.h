@@ -17,7 +17,7 @@ public:
     std::vector<PointLight> m_lights;
 };
 
-World default_world()
+static inline World default_world()
 {
   PointLight light(Point(-10,10,-10), Color(1,1,1));
   std::shared_ptr<Sphere> s1 = std::make_shared<Sphere>();
