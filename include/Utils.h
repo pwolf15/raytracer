@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include "Camera.h"
+#include "Canvas.h"
 #include "Computations.h"
 #include "Lighting.h"
 #include "Transformations.h"
@@ -130,6 +131,23 @@ inline static Ray ray_for_pixel(Camera camera, int px, int py)
     Vector direction = Vector(pixel.x - origin.x, pixel.y - origin.y, pixel.z - origin.z).normalize();
 
     return Ray(origin, direction);
+}
+
+inline static Canvas render(Camera camera, World world)
+{
+    Canvas image(camera.m_hsize, camera.m_vsize);
+
+    for (int y = 0; y < camera.m_vsize; ++y)
+    {
+        for (int x = 0; x < camera.m_hsize; ++x)
+        {
+            Ray ray = ray_for_pixel(camera, x, y);
+            Color color = color_at(world, ray);
+            image.write_pixel(x, y, color);
+        }
+    }
+    
+    return image;
 }
 
 

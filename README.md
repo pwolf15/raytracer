@@ -1,6 +1,6 @@
 Dependencies
 * CppUTest
-* 
+* Book uses left-handed coordinate system (-z toward you, out of page, +z into page)
 
 TODO
 

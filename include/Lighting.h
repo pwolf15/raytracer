@@ -10,9 +10,9 @@
 static inline Color lighting(Material material, PointLight light, Point point, Vector eyev, Vector normalv)
 {
     Color effective_color = material.color * light.intensity;
-    std::cout << "Color: " << material.color << std::endl;
-    std::cout << "Intensity: " << light.intensity << std::endl;
-    std::cout << "Effective color: " << effective_color << std::endl;
+    // std::cout << "Color: " << material.color << std::endl;
+    // std::cout << "Intensity: " << light.intensity << std::endl;
+    // std::cout << "Effective color: " << effective_color << std::endl;
     Vector lightv = Vector(light.position - point).normalize();
 
     Color ambient = effective_color * material.ambient;
@@ -36,18 +36,18 @@ static inline Color lighting(Material material, PointLight light, Point point, V
         else
         {
             float factor = pow(reflect_dot_eye, material.shininess);
-            std::cout << "reflect_dot_eye: " << reflect_dot_eye << std::endl;
-            std::cout << "shininess" << material.shininess << std::endl;
-            std::cout << "Factor: " << factor << std::endl;
-            std::cout << "Maetiral specular: " << material.specular << std::endl;
-            std::cout << "Light intesnity: " << light.intensity << std::endl;
+            // std::cout << "reflect_dot_eye: " << reflect_dot_eye << std::endl;
+            // std::cout << "shininess" << material.shininess << std::endl;
+            // std::cout << "Factor: " << factor << std::endl;
+            // std::cout << "Maetiral specular: " << material.specular << std::endl;
+            // std::cout << "Light intesnity: " << light.intensity << std::endl;
             specular = light.intensity * material.specular * factor;
         }
     }
 
-    std::cout << "Ambient: " << ambient <<std::endl;
-    std::cout << "Diffuse: " << diffuse << std::endl;
-    std::cout << "Specular: " << specular << std::endl;
+    // std::cout << "Ambient: " << ambient <<std::endl;
+    // std::cout << "Diffuse: " << diffuse << std::endl;
+    // std::cout << "Specular: " << specular << std::endl;
 
     return ambient + diffuse + specular;
 }

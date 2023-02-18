@@ -48,3 +48,15 @@ TEST(Camera, RayForPixel)
     CHECK(Point(0,2,-5) == r.origin);
     CHECK(Vector(sqrt(2)/2,0,-sqrt(2)/2) == r.direction);  
 }
+
+TEST(Camera, Render)
+{
+    World w = default_world();
+    Camera c(11, 11, PI/2);
+    Point from(0, 0, -5);
+    Point to(0,0,0);
+    Vector up(0,1,0);
+    c.m_transform = view_transform(from, to, up);
+    Canvas image = render(c, w);
+    CHECK(Color(0.38066,0.47583,0.2855) == image.pixel_at(5,5));
+}
