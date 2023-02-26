@@ -12,7 +12,8 @@ add_executable(main main.cpp)
 add_executable(tests 
     tests.cpp 
     tests/src/CameraTests.cpp
-    tests/src/MaterialsTests.cpp)
+    tests/src/MaterialsTests.cpp
+    tests/src/WorldTests.cpp)
 add_executable(cannon cannon.cpp)
 add_executable(clock clock.cpp)
 add_executable(sphere2d sphere2d.cpp)
