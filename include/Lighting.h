@@ -7,7 +7,7 @@
 #include "Point.h"
 #include "Vector.h"
 
-static inline Color lighting(Material material, PointLight light, Point point, Vector eyev, Vector normalv)
+static inline Color lighting(Material material, PointLight light, Point point, Vector eyev, Vector normalv, bool in_shadow = false)
 {
     Color effective_color = material.color * light.intensity;
     // std::cout << "Color: " << material.color << std::endl;
@@ -48,6 +48,12 @@ static inline Color lighting(Material material, PointLight light, Point point, V
     // std::cout << "Ambient: " << ambient <<std::endl;
     // std::cout << "Diffuse: " << diffuse << std::endl;
     // std::cout << "Specular: " << specular << std::endl;
+
+    if (in_shadow)
+    {
+        specular = Color(0, 0, 0);
+        diffuse = Color(0, 0, 0);
+    }
 
     return ambient + diffuse + specular;
 }

@@ -61,4 +61,12 @@ TEST(Material, Phong)
   light = PointLight(Point(0,0,10), Color(1,1,1));
   result = lighting(m, light, position, eyev, normalv);
   TUPLES_EQUAL(Color(0.1,0.1,0.1), result);
+
+  // in shadow
+  eyev = Vector(0,0,-1);
+  normalv = Vector(0,0,-1);
+  light = PointLight(Point(0,0,-10), Color(1,1,1));
+  bool in_shadow = true;
+  result = lighting(m, light, position, eyev, normalv, in_shadow);
+  TUPLES_EQUAL(Color(0.1,0.1,0.1), result);
 } 
