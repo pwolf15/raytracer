@@ -5,10 +5,14 @@ project(raytracer)
 set (CMAKE_CXX_STANDARD 20)
 include_directories(include)
 include_directories(/opt/homebrew/include)
+include_directories(${PROJECT_SOURCE_DIR}/tests/include)
 link_directories(/opt/homebrew/lib)
 
 add_executable(main main.cpp)
-add_executable(tests tests.cpp tests/src/CameraTests.cpp)
+add_executable(tests 
+    tests.cpp 
+    tests/src/CameraTests.cpp
+    tests/src/MaterialsTests.cpp)
 add_executable(cannon cannon.cpp)
 add_executable(clock clock.cpp)
 add_executable(sphere2d sphere2d.cpp)
