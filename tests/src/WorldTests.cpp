@@ -95,3 +95,10 @@ TEST(World, ColorAt)
   c = color_at(w, r);
   CHECK(inner->material.color == c);
 }
+
+TEST(World, IsShadowed)
+{
+    World w = default_world();
+    Point p(-2,2,-2);
+    CHECK(!is_shadowed(w, p));
+}

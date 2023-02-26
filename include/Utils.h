@@ -150,5 +150,24 @@ inline static Canvas render(Camera camera, World world)
     return image;
 }
 
+inline static bool is_shadowed(World world, Point p)
+{
+    Point lightPosition = world.m_lights[0].position;
+    Vector v(lightPosition.x - p.x, lightPosition.y - p.y, lightPosition.z - p.z);
+    float distance = v.magnitude();
+    Vector direction = v.normalize();
+    Ray r(p, direction);
+    std::vector<Intersection> intersections = intersect_world(world, r);
+
+    std::optional<Intersection> h = hit(intersections);
+    if (h.has_value() && h.value().t < distance)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
 #endif // UTILS_H
