@@ -153,7 +153,7 @@ inline static Canvas render(Camera camera, World world)
 inline static bool is_shadowed(World world, Point p)
 {
     Point lightPosition = world.m_lights[0].position;
-    Vector v(lightPosition.x - p.x, lightPosition.y - p.y, lightPosition.z - p.z);
+    Vector v = lightPosition - p;
     float distance = v.magnitude();
     Vector direction = v.normalize();
     Ray r(p, direction);
