@@ -99,6 +99,15 @@ TEST(World, ColorAt)
 TEST(World, IsShadowed)
 {
     World w = default_world();
-    Point p(-2,2,-2);
+    Point p(0, 10, 0);
+    CHECK(!is_shadowed(w, p));
+
+    p = Point(10,-10,10);
+    CHECK(is_shadowed(w, p));
+    
+    p = Point(-20, 20, -20);
+    CHECK(!is_shadowed(w, p));
+
+    p = Point(-2, 2, -2);
     CHECK(!is_shadowed(w, p));
 }
