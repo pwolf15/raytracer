@@ -38,7 +38,8 @@ inline static Computations prepare_computations(Intersection intersection, Ray r
         normalv = -normalv;
     }
     
-    Computations comps(t, obj, pos, eyev, normalv, inside);
+    Point over_point = pos + normalv * EPSILON;
+    Computations comps(t, obj, pos, over_point, eyev, normalv, inside);
     return comps;
 }
 
@@ -85,12 +86,34 @@ inline static std::vector<Intersection> intersect_world(World w, Ray r)
     return intersections;
 }
 
+inline static bool is_shadowed(World world, Point p)
+{
+    Point lightPosition = world.m_lights[0].position;
+    Vector v = lightPosition - p;
+    float distance = v.magnitude();
+    Vector direction = v.normalize();
+    Ray r(p, direction);
+    std::vector<Intersection> intersections = intersect_world(world, r);
+
+    std::optional<Intersection> h = hit(intersections);
+    if (h.has_value() && h.value().t < distance)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 inline static Color shade_hit(World world, Computations comps)
 {
+    bool shadowed = is_shadowed(world, comps.m_over_point);
     return lighting(comps.m_object->material,
         world.m_lights[0],
-        comps.m_point, comps.m_eyev,
-        comps.m_normalv);
+        comps.m_over_point, comps.m_eyev,
+        comps.m_normalv,
+        shadowed);
 }
 
 inline static Color color_at(World world, Ray r)
@@ -148,26 +171,6 @@ inline static Canvas render(Camera camera, World world)
     }
     
     return image;
-}
-
-inline static bool is_shadowed(World world, Point p)
-{
-    Point lightPosition = world.m_lights[0].position;
-    Vector v = lightPosition - p;
-    float distance = v.magnitude();
-    Vector direction = v.normalize();
-    Ray r(p, direction);
-    std::vector<Intersection> intersections = intersect_world(world, r);
-
-    std::optional<Intersection> h = hit(intersections);
-    if (h.has_value() && h.value().t < distance)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
 }
 
 #endif // UTILS_H

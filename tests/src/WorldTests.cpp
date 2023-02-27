@@ -74,6 +74,16 @@ TEST(World, ShadeHit)
   c = shade_hit(w, comps);
   
   CHECK(Color(0.90498,0.90498,0.90498) == c);
+
+  w.m_lights[0] = PointLight(Point(0, 0, -10), Color(1,1,1));
+  w.m_spheres[0] = std::make_shared<Sphere>();
+  w.m_spheres[1] = std::make_shared<Sphere>();
+  w.m_spheres[1]->transform = translation(0, 0, 10);
+  r = Ray(Point(0, 0, 5), Vector(0,0,1));
+  i = Intersection(4, w.m_spheres[1]);
+  comps = prepare_computations(i, r);
+  c = shade_hit(w, comps);
+  CHECK(Color(0.1,0.1,0.1) == c);
 }
 
 TEST(World, ColorAt)
