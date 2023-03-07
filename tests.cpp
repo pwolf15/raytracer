@@ -283,7 +283,7 @@ TEST_GROUP(Matrix)
 
 TEST(Matrix, Matrix1)
 {
-  Matrix m1(std::vector<std::vector<float>>{
+  Matrix m1(std::vector<std::vector<double>>{
     {
       {1, 2, 3, 4},
       { 5.5, 6.5, 7.5, 8.5},

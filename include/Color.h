@@ -6,17 +6,17 @@
 class Color: public Tuple
 {
 public:
-  Color(float r, float g, float b): Tuple(r,g,b,1.0)
+  Color(double r, double g, double b): Tuple(r,g,b,1.0)
   {
 
   }
 
-  float red() { return x; }
-  float green() { return y; }
-  float blue() { return z; }
-  void red(float r) { x = r; }
-  void green(float g) { y = g; }
-  void blue(float b) { z = b; }
+  double red() { return x; }
+  double green() { return y; }
+  double blue() { return z; }
+  void red(double r) { x = r; }
+  void green(double g) { y = g; }
+  void blue(double b) { z = b; }
 
   friend Color operator+(Color lhs,        // passing lhs by value helps optimize chained a+b+c
                       const Color& rhs) // otherwise, both parameters may be const references
@@ -32,7 +32,7 @@ public:
     return result;
   }
 
-  friend Color operator*(Color lhs, float s)
+  friend Color operator*(Color lhs, double s)
   {
     Color result(lhs.x * s, lhs.y * s, lhs.z * s);
     return result;

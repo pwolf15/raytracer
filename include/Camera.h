@@ -8,7 +8,7 @@
 class Camera
 {
 public:
-    Camera(int hsize, int vsize, float field_of_view):
+    Camera(int hsize, int vsize, double field_of_view):
         m_hsize(hsize),
         m_vsize(vsize),
         m_field_of_view(field_of_view),
@@ -24,19 +24,19 @@ public:
 
     int m_hsize;
     int m_vsize;
-    float m_field_of_view;
-    float m_half_width;
-    float m_half_height;
-    float m_pixel_size;
+    double m_field_of_view;
+    double m_half_width;
+    double m_half_height;
+    double m_pixel_size;
     Matrix m_transform;
 
 private:
     void getPixelSize()
     {
-        float half_view = tanf(m_field_of_view / 2);
-        float aspect = (float)m_hsize/m_vsize;
+        double half_view = tanf(m_field_of_view / 2);
+        double aspect = (double)m_hsize/m_vsize;
 
-        float half_height = 0.0, half_width = 0.0;
+        double half_height = 0.0, half_width = 0.0;
         if (aspect >= 1)
         {
             m_half_width = half_view;

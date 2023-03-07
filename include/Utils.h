@@ -25,7 +25,7 @@ inline static std::optional<Intersection> hit(std::vector<Intersection>& xs)
 
 inline static Computations prepare_computations(Intersection intersection, Ray ray)
 {
-    float t = intersection.t;
+    double t = intersection.t;
     std::shared_ptr<Sphere> obj = intersection.object;
     Point pos = ray.position(t);
     Vector eyev = -ray.direction, normalv = obj->normal_at(pos);
@@ -50,18 +50,18 @@ inline static std::vector<Intersection> intersect(std::shared_ptr<Sphere> s, Ray
     Matrix inv = s->transform.inverse();
     Ray ray2 = r.transform(inv);
     Vector sphere_to_ray = ray2.origin - Point(0, 0, 0);
-    float a = ray2.direction.dot(ray2.direction);
-    float b = 2 * ray2.direction.dot(sphere_to_ray);
-    float c = sphere_to_ray.dot(sphere_to_ray) - 1;
-    float discriminant = pow(b,2) - 4*a*c;
+    double a = ray2.direction.dot(ray2.direction);
+    double b = 2 * ray2.direction.dot(sphere_to_ray);
+    double c = sphere_to_ray.dot(sphere_to_ray) - 1;
+    double discriminant = pow(b,2) - 4*a*c;
 
     if (discriminant < 0)
     {
         return ts;
     }
 
-    float t1 = (-b - sqrt(discriminant)) / (2 * a);
-    float t2 = (-b + sqrt(discriminant)) / (2 * a);
+    double t1 = (-b - sqrt(discriminant)) / (2 * a);
+    double t2 = (-b + sqrt(discriminant)) / (2 * a);
 
     ts.push_back(Intersection(t1, s));
     ts.push_back(Intersection(t2, s));
@@ -90,7 +90,7 @@ inline static bool is_shadowed(World world, Point p)
 {
     Point lightPosition = world.m_lights[0].position;
     Vector v = lightPosition - p;
-    float distance = v.magnitude();
+    double distance = v.magnitude();
     Vector direction = v.normalize();
     Ray r(p, direction);
     std::vector<Intersection> intersections = intersect_world(world, r);
@@ -144,11 +144,11 @@ inline static std::vector<Intersection> intersections(std::initializer_list<T> l
 
 inline static Ray ray_for_pixel(Camera camera, int px, int py)
 {
-    float xoffset = (px + 0.5) * camera.m_pixel_size;
-    float yoffset = (py + 0.5) * camera.m_pixel_size;
+    double xoffset = (px + 0.5) * camera.m_pixel_size;
+    double yoffset = (py + 0.5) * camera.m_pixel_size;
 
-    float world_x = camera.m_half_width - xoffset;
-    float world_y = camera.m_half_height - yoffset;
+    double world_x = camera.m_half_width - xoffset;
+    double world_y = camera.m_half_height - yoffset;
     Point pixel = camera.m_transform.inverse() * Point(world_x, world_y, -1);
     Vector origin = camera.m_transform.inverse() * Point(0,0,0);
     Vector direction = Vector(pixel.x - origin.x, pixel.y - origin.y, pixel.z - origin.z).normalize();

@@ -18,7 +18,7 @@ static inline Color lighting(Material material, PointLight light, Point point, V
     Color ambient = effective_color * material.ambient;
     Color diffuse(0.0, 0.0, 0.0), specular(0.0,0.0,0.0);
 
-    float light_dot_normal = lightv.dot(normalv);
+    double light_dot_normal = lightv.dot(normalv);
     if (light_dot_normal < 0)
     {
         diffuse = Color(0.0,0.0,0.0);
@@ -28,14 +28,14 @@ static inline Color lighting(Material material, PointLight light, Point point, V
     {
         diffuse = effective_color * material.diffuse * light_dot_normal;
         Vector reflectv = ((Vector)-lightv).reflect(normalv);
-        float reflect_dot_eye = reflectv.dot(eyev);
+        double reflect_dot_eye = reflectv.dot(eyev);
         if (reflect_dot_eye <= 0)
         {
             specular = Color(0.0,0.0,0.0);
         }
         else
         {
-            float factor = pow(reflect_dot_eye, material.shininess);
+            double factor = pow(reflect_dot_eye, material.shininess);
             // std::cout << "reflect_dot_eye: " << reflect_dot_eye << std::endl;
             // std::cout << "shininess" << material.shininess << std::endl;
             // std::cout << "Factor: " << factor << std::endl;

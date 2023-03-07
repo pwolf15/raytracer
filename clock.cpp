@@ -37,10 +37,10 @@ int main()
     // 2*PI/12 represents distance between two points
     // each point is top point, rotated by PI/6
 
-    float start = 0;
+    double start = 0;
     const int numPoints = 12;
-    const float circum = 2 * PI;
-    constexpr float rad = 2*PI/numPoints;
+    const double circum = 2 * PI;
+    constexpr double rad = 2*PI/numPoints;
     for (int i = 0; i < numPoints; ++i)
     {
         Matrix newPointT = worldT * rotation_z(start);

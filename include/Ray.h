@@ -11,7 +11,7 @@ public:
     Ray(Point origin, Vector direction): origin(origin), direction(direction) 
         {}
 
-    Point position(float t)
+    Point position(double t)
     {
         return origin + direction * t;
     }

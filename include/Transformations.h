@@ -4,7 +4,7 @@
 #include "Matrix.h"
 #include "Vector.h"
 
-static inline Matrix translation(float x, float y, float z)
+static inline Matrix translation(double x, double y, double z)
 {
     Matrix m({
         {1, 0, 0, x},
@@ -15,7 +15,7 @@ static inline Matrix translation(float x, float y, float z)
     return m;
 }
 
-static inline Matrix scaling(float x, float y, float z)
+static inline Matrix scaling(double x, double y, double z)
 {
     Matrix m({
         {x, 0, 0, 0},
@@ -26,7 +26,7 @@ static inline Matrix scaling(float x, float y, float z)
     return m;
 }
 
-static inline Matrix rotation_x(float rad)
+static inline Matrix rotation_x(double rad)
 {
     Matrix m({
         {1,0,0,0},
@@ -37,7 +37,7 @@ static inline Matrix rotation_x(float rad)
     return m;
 }
 
-static inline Matrix rotation_y(float rad)
+static inline Matrix rotation_y(double rad)
 {
     Matrix m({
         {cos(rad),0,sin(rad),0},
@@ -48,7 +48,7 @@ static inline Matrix rotation_y(float rad)
     return m;
 }
 
-static inline Matrix rotation_z(float rad)
+static inline Matrix rotation_z(double rad)
 {
     Matrix m({
         {cos(rad),-sin(rad),0,0},
@@ -59,7 +59,7 @@ static inline Matrix rotation_z(float rad)
     return m;
 }
 
-static inline Matrix shearing(float xy, float xz, float yx, float yz, float zx, float zy)
+static inline Matrix shearing(double xy, double xz, double yx, double yz, double zx, double zy)
 {
     Matrix m({
         {1, xy, xz,0},

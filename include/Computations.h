@@ -10,7 +10,7 @@
 class Computations
 {
 public:
-    Computations(float t, std::shared_ptr<Sphere> object, Point point, Point over_point, Vector eyev, Vector normalv, bool inside):  
+    Computations(double t, std::shared_ptr<Sphere> object, Point point, Point over_point, Vector eyev, Vector normalv, bool inside):  
         m_t(t),
         m_object(object),
         m_point(point),
@@ -20,7 +20,7 @@ public:
         m_inside(inside)
         {}
 
-    float m_t;
+    double m_t;
     std::shared_ptr<Sphere> m_object;
     Point m_point;
     Point m_over_point;

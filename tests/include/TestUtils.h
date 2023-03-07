@@ -8,7 +8,7 @@
 
 #define PI 3.14159265358979
 
-static inline void TUPLES_EQUAL(const Tuple& a, const Tuple& b, float th = 0.1)
+static inline void TUPLES_EQUAL(const Tuple& a, const Tuple& b, double th = 0.1)
 {
   DOUBLES_EQUAL(a.x, b.x, th);
   DOUBLES_EQUAL(a.y, b.y, th);

@@ -9,7 +9,7 @@
 class Tuple
 {
 public:
-  Tuple(float x, float y, float z, float w):
+  Tuple(double x, double y, double z, double w):
     x(x), y(y), z(z), w(w)
   {}
 
@@ -59,13 +59,13 @@ public:
     return result;
   }
 
-  friend Tuple operator*(Tuple lhs, float s)
+  friend Tuple operator*(Tuple lhs, double s)
   {
     Tuple result(lhs.x * s, lhs.y * s, lhs.z * s, lhs.w * s);
     return result;
   }
 
-  friend Tuple operator/(Tuple lhs, float s)
+  friend Tuple operator/(Tuple lhs, double s)
   {
     Tuple result(lhs.x / s, lhs.y / s, lhs.z / s, lhs.w / s);
     return result;
@@ -84,7 +84,7 @@ public:
     return os;
   }
 
-  float x, y, z, w;
+  double x, y, z, w;
 
 };
 

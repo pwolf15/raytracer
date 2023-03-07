@@ -12,7 +12,7 @@
 class Matrix
 {
 public:
-  Matrix(std::vector<std::vector<float>> m): m(m)
+  Matrix(std::vector<std::vector<double>> m): m(m)
   {
     if ((m[0].size() != m.size()))
     {
@@ -37,7 +37,7 @@ public:
     if ((rows_a != rows_b) || (cols_a != cols_b)) return false;
 
     bool isEqual = true;
-    float threshold = 1e-5;
+    double threshold = 1e-5;
     for (size_t i = 0; i < rows_a; ++i)
     {
       for (size_t j = 0; j < cols_a; ++j)
@@ -68,13 +68,13 @@ public:
 
   Matrix operator* (const Matrix& b) const
   {
-    std::vector<std::vector<float>> result(b.m.size());
+    std::vector<std::vector<double>> result(b.m.size());
     for (size_t i = 0; i < m.size(); ++i)
     {
       result[i].resize(b.m[0].size());
       for (size_t j = 0; j < m[0].size(); ++j)
       {
-        float value = 0;
+        double value = 0;
         for (size_t k = 0; k < m.size(); ++k)
         {
           value += (*this)(i,k) * b(k,j);
@@ -88,7 +88,7 @@ public:
 
   Tuple operator* (const Tuple& b) const
   {
-    std::vector<float> result((*this).m.size());
+    std::vector<double> result((*this).m.size());
     for (int i = 0; i < (*this).m.size(); ++i)
     {
       result[i] = 0;
@@ -104,7 +104,7 @@ public:
 
   Matrix transpose() const
   {
-    std::vector<std::vector<float>> t_data((*this).m.size());
+    std::vector<std::vector<double>> t_data((*this).m.size());
 
     for (int i = 0; i < (*this).m.size(); ++i)
     {
@@ -118,13 +118,13 @@ public:
     return t;
   }
 
-  float determinant_2x2() const
+  double determinant_2x2() const
   {
     const auto data = (*this).m;
     return data[0][0]*data[1][1] - data[0][1]*data[1][0];
   }
 
-  float determinant() const
+  double determinant() const
   {
     const auto data = (*this).m;
     const int rows = data.size();
@@ -136,7 +136,7 @@ public:
     }
     else
     {
-      float det = 0;
+      double det = 0;
       for (int i = 0; i < cols; ++i)
       {
         const int row = 0;
@@ -153,7 +153,7 @@ public:
   Matrix submatrix(int row, int col) const
   {
     const auto data = (*this).m;
-    std::vector<std::vector<float>> s(data.size() - 1);
+    std::vector<std::vector<double>> s(data.size() - 1);
     int sRow = 0, sCol = 0;
     for (int i = 0; i < data.size(); ++i)
     {
@@ -177,15 +177,15 @@ public:
     return sMat;
   }
 
-  float minor(int row, int col) const
+  double minor(int row, int col) const
   {
     Matrix s = this->submatrix(row, col);
     return s.determinant();
   }
 
-  float cofactor(int row, int col) const
+  double cofactor(int row, int col) const
   {
-    float sign = (row + col) % 2 == 0 ? 1 : -1;
+    double sign = (row + col) % 2 == 0 ? 1 : -1;
     return this->minor(row, col) * sign;
   }
 
@@ -204,7 +204,7 @@ public:
     }
 
     const auto m_data = m;
-    std::vector<std::vector<float>> data(m_data.size());
+    std::vector<std::vector<double>> data(m_data.size());
     const auto det = this->determinant();
     for (int i = 0; i < m_data.size(); ++i)
     {
@@ -214,7 +214,7 @@ public:
     {
       for (int j = 0; j < m_data[i].size(); ++j)
       {
-        float c = this->cofactor(i, j);
+        double c = this->cofactor(i, j);
         data[j][i] = c / det;
       }
     }
@@ -245,7 +245,7 @@ public:
 
 
 private:
-  std::vector<std::vector<float>> m;
+  std::vector<std::vector<double>> m;
 };
 
 #endif // MATRIX_H

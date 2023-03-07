@@ -14,10 +14,10 @@ int main()
 
     int canvas_width = 200;
     int canvas_height = 200;
-    float wall_z = 10;
-    float wall_size = 7.0;
-    float pixel_size = wall_size / canvas_width;
-    float half = wall_size / 2;
+    double wall_z = 10;
+    double wall_size = 7.0;
+    double pixel_size = wall_size / canvas_width;
+    double half = wall_size / 2;
 
     Canvas c(canvas_width, canvas_height);
 
@@ -37,7 +37,7 @@ int main()
     // shrink along x
     // s.set_transform(scaling(0.5,1,1));
     // shrink and rotate
-    // const float PI = 3.1415926535;
+    // const double PI = 3.1415926535;
     // s.set_transform(rotation_z(PI/4) * scaling(0.5,1,1));
     // shrink and skew it
     // s.set_transform(shearing(1,0,0,0,0,0)*scaling(0.5,1,1));
