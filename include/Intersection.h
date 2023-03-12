@@ -3,7 +3,7 @@
 
 #include <optional>
 
-#include "Shape.h"
+class Shape;
 
 class Intersection
 {

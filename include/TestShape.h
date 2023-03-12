@@ -18,6 +18,16 @@ public:
     {
         return Vector(0, 0, 0);
     }
+
+    std::vector<Intersection> local_intersect(const Ray& r)
+    {
+        std::vector<Intersection> ts;
+
+        SPDLOG_INFO("local_intersect not implemented for TestShape");
+
+        return ts;
+    }
+
 };
 
 #endif // TEST_SHAPE_H

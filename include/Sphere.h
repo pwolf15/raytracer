@@ -8,7 +8,7 @@
 #include "Shape.h"
 #include "Material.h"
 
-class Sphere: public Shape
+class Sphere: public Shape, public std::enable_shared_from_this<Sphere>
 {
 public:
     Sphere() {}
@@ -36,6 +36,30 @@ public:
         
         return m_transform == rhs.m_transform && 
             m_material == rhs.m_material;
+    }
+
+    std::vector<Intersection> local_intersect(const Ray& r)
+    {
+        std::vector<Intersection> ts;
+
+        Vector shape_to_ray = r.origin - Point(0, 0, 0);
+        double a = r.direction.dot(r.direction);
+        double b = 2 * r.direction.dot(shape_to_ray);
+        double c = shape_to_ray.dot(shape_to_ray) - 1;
+        double discriminant = pow(b,2) - 4*a*c;
+
+        if (discriminant < 0)
+        {
+            return ts;
+        }
+
+        double t1 = (-b - sqrt(discriminant)) / (2 * a);
+        double t2 = (-b + sqrt(discriminant)) / (2 * a);
+
+        ts.push_back(Intersection(t1, shared_from_this()));
+        ts.push_back(Intersection(t2, shared_from_this()));
+        
+        return ts;
     }
 
 private:

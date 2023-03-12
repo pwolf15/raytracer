@@ -1,9 +1,13 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
+#include <vector>
+
+#include "Intersection.h"
 #include "Material.h"
 #include "Matrix.h"
 #include "Point.h"
+#include "Ray.h"
 #include "Vector.h"
 
 class Shape
@@ -20,6 +24,8 @@ public:
     virtual void set_transform(Matrix t) = 0;
 
     virtual Vector normal_at(Point pos) = 0;
+
+    virtual std::vector<Intersection> local_intersect(const Ray& r) = 0;
 
     virtual ~Shape() {};
 

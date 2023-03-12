@@ -8,6 +8,7 @@
 #include "Transformations.h"
 #include "Intersection.h"
 #include "Ray.h"
+#include "TestShape.h"
 #include "World.h"
 
 inline static std::optional<Intersection> hit(std::vector<Intersection>& xs)
@@ -45,28 +46,9 @@ inline static Computations prepare_computations(Intersection intersection, Ray r
 
 inline static std::vector<Intersection> intersect(std::shared_ptr<Shape> s, Ray r)
 {
-    std::vector<Intersection> ts;
-
     Matrix inv = s->m_transform.inverse();
     Ray ray2 = r.transform(inv);
-    Vector shape_to_ray = ray2.origin - Point(0, 0, 0);
-    double a = ray2.direction.dot(ray2.direction);
-    double b = 2 * ray2.direction.dot(shape_to_ray);
-    double c = shape_to_ray.dot(shape_to_ray) - 1;
-    double discriminant = pow(b,2) - 4*a*c;
-
-    if (discriminant < 0)
-    {
-        return ts;
-    }
-
-    double t1 = (-b - sqrt(discriminant)) / (2 * a);
-    double t2 = (-b + sqrt(discriminant)) / (2 * a);
-
-    ts.push_back(Intersection(t1, s));
-    ts.push_back(Intersection(t2, s));
-    
-    return ts;
+    return s->local_intersect(ray2);
 }
 
 inline static std::vector<Intersection> intersect_world(World w, Ray r)
