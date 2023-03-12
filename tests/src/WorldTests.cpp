@@ -27,9 +27,9 @@ TEST(World, World)
   
   std::shared_ptr<Sphere> s1 = std::make_shared<Sphere>();
   Material m1(Color(0.8,1.0,0.6),0.1,0.7,0.2);
-  s1->material = m1;
+  s1->m_material = m1;
   std::shared_ptr<Sphere> s2 = std::make_shared<Sphere>();
-  s2->transform = scaling(0.5,0.5,0.5);
+  s2->m_transform = scaling(0.5,0.5,0.5);
 
   w = default_world();
 
@@ -78,7 +78,7 @@ TEST(World, ShadeHit)
   w.m_lights[0] = PointLight(Point(0, 0, -10), Color(1,1,1));
   w.m_spheres[0] = std::make_shared<Sphere>();
   w.m_spheres[1] = std::make_shared<Sphere>();
-  w.m_spheres[1]->transform = translation(0, 0, 10);
+  w.m_spheres[1]->m_transform = translation(0, 0, 10);
   r = Ray(Point(0, 0, 5), Vector(0,0,1));
   i = Intersection(4, w.m_spheres[1]);
   comps = prepare_computations(i, r);
@@ -98,12 +98,12 @@ TEST(World, ColorAt)
   CHECK(Color(0.38066,0.47583,0.2855) == c);
 
   std::shared_ptr<Sphere> outer = w.m_spheres[0];
-  outer->material.ambient = 1;
+  outer->m_material.ambient = 1;
   std::shared_ptr<Sphere> inner = w.m_spheres[1];
-  inner->material.ambient = 1;
+  inner->m_material.ambient = 1;
   r = Ray(Point(0,0,0.75), Vector(0,0,-1));
   c = color_at(w, r);
-  CHECK(inner->material.color == c);
+  CHECK(inner->m_material.color == c);
 }
 
 TEST(World, IsShadowed)

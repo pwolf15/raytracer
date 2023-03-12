@@ -90,7 +90,7 @@ TEST(Intersection, Computations)
 
   r = Ray(Point(0,0,-5),Vector(0,0,1));
   shape = std::make_shared<Sphere>();
-  shape->transform = translation(0,0,1);
+  shape->m_transform = translation(0,0,1);
   i = Intersection(5, shape);
   comps = prepare_computations(i, r);
   CHECK(comps.m_over_point.z < -EPSILON/2);

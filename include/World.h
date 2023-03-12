@@ -22,9 +22,9 @@ static inline World default_world()
   PointLight light(Point(-10,10,-10), Color(1,1,1));
   std::shared_ptr<Sphere> s1 = std::make_shared<Sphere>();
   Material m1(Color(0.8,1.0,0.6),0.1,0.7,0.2);
-  s1->material = m1;
+  s1->m_material = m1;
   std::shared_ptr<Sphere> s2 = std::make_shared<Sphere>();
-  s2->transform = scaling(0.5,0.5,0.5);
+  s2->m_transform = scaling(0.5,0.5,0.5);
   World w;
   w.m_lights.push_back(light);
   w.m_spheres.push_back(s1);

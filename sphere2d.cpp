@@ -22,11 +22,11 @@ int main()
     Canvas c(canvas_width, canvas_height);
 
     std::shared_ptr<Sphere> s = std::make_shared<Sphere>();
-    s->material.color = Color(1,0.2,1);
-    s->material.ambient = 0.1;
-    s->material.diffuse = 0.9;
-    s->material.specular = 0.9;
-    s->material.shininess = 200.0;
+    s->m_material.color = Color(1,0.2,1);
+    s->m_material.ambient = 0.1;
+    s->m_material.diffuse = 0.9;
+    s->m_material.specular = 0.9;
+    s->m_material.shininess = 200.0;
 
     PointLight light(Point(-10,10,-10), Color(1,1,1));
 
@@ -63,7 +63,7 @@ int main()
             {
                 Point p = r.position(hitPoint->t); // retreive point of interesection
                 Vector normal = hitPoint->object->normal_at(p);
-                Color color = lighting(hitPoint->object->material, light, p, -eyev, normal);
+                Color color = lighting(hitPoint->object->m_material, light, p, -eyev, normal);
                 c.write_pixel(i, j, color);
                 numHits++;
             }

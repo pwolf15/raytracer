@@ -47,7 +47,7 @@ inline static std::vector<Intersection> intersect(std::shared_ptr<Sphere> s, Ray
 {
     std::vector<Intersection> ts;
 
-    Matrix inv = s->transform.inverse();
+    Matrix inv = s->m_transform.inverse();
     Ray ray2 = r.transform(inv);
     Vector sphere_to_ray = ray2.origin - Point(0, 0, 0);
     double a = ray2.direction.dot(ray2.direction);
@@ -109,7 +109,7 @@ inline static bool is_shadowed(World world, Point p)
 inline static Color shade_hit(World world, Computations comps)
 {
     bool shadowed = is_shadowed(world, comps.m_over_point);
-    return lighting(comps.m_object->material,
+    return lighting(comps.m_object->m_material,
         world.m_lights[0],
         comps.m_over_point, comps.m_eyev,
         comps.m_normalv,

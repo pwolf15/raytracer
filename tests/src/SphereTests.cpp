@@ -23,11 +23,11 @@ TEST(Spheres, Transform)
       {0,0,1,0},
       {0,0,0,1}
   });
-  CHECK(identity == s.transform);
+  CHECK(identity == s.m_transform);
 
   Matrix t = translation(2, 3, 4);
   s.set_transform(t);
-  CHECK(s.transform == t);
+  CHECK(s.m_transform == t);
 }
 
 TEST(Spheres, Intersect)
@@ -72,9 +72,9 @@ TEST(Spheres, Material)
 {
   Sphere s;
   Material m;
-  CHECK(Material() == s.material);
+  CHECK(Material() == s.m_material);
 
   m.ambient = 1;
-  s.material = m;
-  CHECK(m == s.material);
+  s.m_material = m;
+  CHECK(m == s.m_material);
 }
