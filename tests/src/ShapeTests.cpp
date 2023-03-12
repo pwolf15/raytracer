@@ -26,3 +26,14 @@ TEST(Shape, Transform)
     s.set_transform(t);
     CHECK(s.m_transform == t);
 }
+
+TEST(Shape, Material)
+{
+  TestShape s;
+  Material m;
+  CHECK(Material() == s.m_material);
+
+  m.ambient = 1;
+  s.m_material = m;
+  CHECK(m == s.m_material);
+}
