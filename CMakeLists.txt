@@ -14,6 +14,8 @@ add_executable(tests
     tests/src/CameraTests.cpp
     tests/src/IntersectionTests.cpp
     tests/src/MaterialsTests.cpp
+    tests/src/ShapeTests.cpp
+    tests/src/SphereTests.cpp
     tests/src/WorldTests.cpp)
 add_executable(cannon cannon.cpp)
 add_executable(clock clock.cpp)
