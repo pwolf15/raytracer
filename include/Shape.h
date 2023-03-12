@@ -17,6 +17,8 @@ public:
 
     virtual void set_transform(Matrix t) = 0;
 
+    virtual ~Shape() {};
+
     Matrix m_transform;
     Material m_material;
 

@@ -2,6 +2,7 @@
 #define TRANSFORMATIONS_H
 
 #include "Matrix.h"
+#include "Point.h"
 #include "Vector.h"
 
 static inline Matrix translation(double x, double y, double z)
