@@ -20,7 +20,7 @@ TEST_GROUP(World)
 TEST(World, World)
 {
   World w;
-  CHECK(w.m_spheres.empty());
+  CHECK(w.m_shapes.empty());
   CHECK(w.m_lights.empty());
 
   PointLight light(Point(-10,10,-10), Color(1,1,1));
@@ -38,9 +38,9 @@ TEST(World, World)
   CHECK(light == w.m_lights[0]);
 
   // objects
-  CHECK_EQUAL(2, w.m_spheres.size());
-  CHECK(*w.m_spheres[0] == *s1);
-  CHECK(*w.m_spheres[1] == *s2);
+  CHECK_EQUAL(2, w.m_shapes.size());
+  CHECK(*std::dynamic_pointer_cast<Sphere>(w.m_shapes[0]) == *s1);
+  CHECK(*std::dynamic_pointer_cast<Sphere>(w.m_shapes[1]) == *s2);
 }
 
 TEST(World, IntersectWorld)
@@ -59,7 +59,7 @@ TEST(World, ShadeHit)
 {
   World w = default_world();
   Ray r(Point(0,0,-5), Vector(0,0,1));
-  std::shared_ptr<Sphere> shape = w.m_spheres[0];
+  std::shared_ptr<Sphere> shape = std::dynamic_pointer_cast<Sphere>(w.m_shapes[0]);
   Intersection i(4, shape);
   Computations comps = prepare_computations(i, r);
   Color c = shade_hit(w, comps);
@@ -68,7 +68,7 @@ TEST(World, ShadeHit)
 
   w.m_lights[0] = PointLight(Point(0,0.25,0),Color(1,1,1));
   r = Ray(Point(0,0,0), Vector(0,0,1));
-  shape = w.m_spheres[1];
+  shape = std::dynamic_pointer_cast<Sphere>(w.m_shapes[1]);
   Intersection i2(0.5, shape);
   comps = prepare_computations(i2, r);
   c = shade_hit(w, comps);
@@ -76,11 +76,11 @@ TEST(World, ShadeHit)
   CHECK(Color(0.90498,0.90498,0.90498) == c);
 
   w.m_lights[0] = PointLight(Point(0, 0, -10), Color(1,1,1));
-  w.m_spheres[0] = std::make_shared<Sphere>();
-  w.m_spheres[1] = std::make_shared<Sphere>();
-  w.m_spheres[1]->m_transform = translation(0, 0, 10);
+  w.m_shapes[0] = std::make_shared<Sphere>();
+  w.m_shapes[1] = std::make_shared<Sphere>();
+  w.m_shapes[1]->m_transform = translation(0, 0, 10);
   r = Ray(Point(0, 0, 5), Vector(0,0,1));
-  i = Intersection(4, w.m_spheres[1]);
+  i = Intersection(4, w.m_shapes[1]);
   comps = prepare_computations(i, r);
   c = shade_hit(w, comps);
   CHECK(Color(0.1,0.1,0.1) == c);
@@ -97,9 +97,9 @@ TEST(World, ColorAt)
   c = color_at(w, r);
   CHECK(Color(0.38066,0.47583,0.2855) == c);
 
-  std::shared_ptr<Sphere> outer = w.m_spheres[0];
+  std::shared_ptr<Sphere> outer = std::dynamic_pointer_cast<Sphere>(w.m_shapes[0]);
   outer->m_material.ambient = 1;
-  std::shared_ptr<Sphere> inner = w.m_spheres[1];
+  std::shared_ptr<Sphere> inner = std::dynamic_pointer_cast<Sphere>(w.m_shapes[1]);
   inner->m_material.ambient = 1;
   r = Ray(Point(0,0,0.75), Vector(0,0,-1));
   c = color_at(w, r);

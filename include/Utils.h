@@ -26,7 +26,7 @@ inline static std::optional<Intersection> hit(std::vector<Intersection>& xs)
 inline static Computations prepare_computations(Intersection intersection, Ray ray)
 {
     double t = intersection.t;
-    std::shared_ptr<Sphere> obj = intersection.object;
+    std::shared_ptr<Shape> obj = intersection.object;
     Point pos = ray.position(t);
     Vector eyev = -ray.direction, normalv = obj->normal_at(pos);
     bool inside = false;
@@ -43,16 +43,16 @@ inline static Computations prepare_computations(Intersection intersection, Ray r
     return comps;
 }
 
-inline static std::vector<Intersection> intersect(std::shared_ptr<Sphere> s, Ray r)
+inline static std::vector<Intersection> intersect(std::shared_ptr<Shape> s, Ray r)
 {
     std::vector<Intersection> ts;
 
     Matrix inv = s->m_transform.inverse();
     Ray ray2 = r.transform(inv);
-    Vector sphere_to_ray = ray2.origin - Point(0, 0, 0);
+    Vector shape_to_ray = ray2.origin - Point(0, 0, 0);
     double a = ray2.direction.dot(ray2.direction);
-    double b = 2 * ray2.direction.dot(sphere_to_ray);
-    double c = sphere_to_ray.dot(sphere_to_ray) - 1;
+    double b = 2 * ray2.direction.dot(shape_to_ray);
+    double c = shape_to_ray.dot(shape_to_ray) - 1;
     double discriminant = pow(b,2) - 4*a*c;
 
     if (discriminant < 0)
@@ -72,9 +72,9 @@ inline static std::vector<Intersection> intersect(std::shared_ptr<Sphere> s, Ray
 inline static std::vector<Intersection> intersect_world(World w, Ray r)
 {
     std::vector<Intersection> intersections;
-    for (auto& sphere: w.m_spheres)
+    for (auto& shape: w.m_shapes)
     {
-        const auto cur_intersections = intersect(sphere, r);
+        const auto cur_intersections = intersect(shape, r);
         std::copy(cur_intersections.begin(), cur_intersections.end(), 
             std::back_inserter(intersections));
     }

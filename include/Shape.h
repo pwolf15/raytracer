@@ -3,6 +3,8 @@
 
 #include "Material.h"
 #include "Matrix.h"
+#include "Point.h"
+#include "Vector.h"
 
 class Shape
 {
@@ -16,6 +18,8 @@ public:
     }) {}
 
     virtual void set_transform(Matrix t) = 0;
+
+    virtual Vector normal_at(Point pos) = 0;
 
     virtual ~Shape() {};
 

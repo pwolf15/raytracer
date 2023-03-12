@@ -47,14 +47,14 @@ int main()
 
     World world;
     world.m_lights.push_back(PointLight(Point(-10,10,-10), Color(1,1,1)));
-    world.m_spheres.push_back(std::make_shared<Sphere>(left));
-    world.m_spheres.push_back(std::make_shared<Sphere>(middle));
-    world.m_spheres.push_back(std::make_shared<Sphere>(right));  
-    world.m_spheres.push_back(std::make_shared<Sphere>(floor));
-    world.m_spheres.push_back(std::make_shared<Sphere>(left_wall));
-    world.m_spheres.push_back(std::make_shared<Sphere>(right_wall));
+    world.m_shapes.push_back(std::make_shared<Sphere>(left));
+    world.m_shapes.push_back(std::make_shared<Sphere>(middle));
+    world.m_shapes.push_back(std::make_shared<Sphere>(right));  
+    world.m_shapes.push_back(std::make_shared<Sphere>(floor));
+    world.m_shapes.push_back(std::make_shared<Sphere>(left_wall));
+    world.m_shapes.push_back(std::make_shared<Sphere>(right_wall));
 
-    Camera camera(640,480,PI/3);
+    Camera camera(100,50,PI/3);
     camera.m_transform = view_transform(Point(0,1.5,-5), Point(0,1,0), Vector(0,1,0));
 
     Canvas canvas = render(camera, world);

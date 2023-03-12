@@ -13,6 +13,11 @@ public:
     {
         m_transform = t;
     }
+
+    Vector normal_at(Point pos)
+    {
+        return Vector(0, 0, 0);
+    }
 };
 
 #endif // TEST_SHAPE_H

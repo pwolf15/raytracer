@@ -3,16 +3,16 @@
 
 #include <optional>
 
-#include "Sphere.h"
+#include "Shape.h"
 
 class Intersection
 {
 public:
 
-    Intersection(double t, std::shared_ptr<Sphere> s): t(t), object(s) {}
+    Intersection(double t, std::shared_ptr<Shape> s): t(t), object(s) {}
 
     double t;
-    std::shared_ptr<Sphere> object;
+    std::shared_ptr<Shape> object;
 private:
 
 };

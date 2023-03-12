@@ -2,7 +2,7 @@
 #define COMPUTATIONS_H
 
 #include "Point.h"
-#include "Sphere.h"
+#include "Shape.h"
 #include "Vector.h"
 
 #define EPSILON 0.00001
@@ -10,7 +10,7 @@
 class Computations
 {
 public:
-    Computations(double t, std::shared_ptr<Sphere> object, Point point, Point over_point, Vector eyev, Vector normalv, bool inside):  
+    Computations(double t, std::shared_ptr<Shape> object, Point point, Point over_point, Vector eyev, Vector normalv, bool inside):  
         m_t(t),
         m_object(object),
         m_point(point),
@@ -21,7 +21,7 @@ public:
         {}
 
     double m_t;
-    std::shared_ptr<Sphere> m_object;
+    std::shared_ptr<Shape> m_object;
     Point m_point;
     Point m_over_point;
     Vector m_eyev;

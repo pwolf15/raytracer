@@ -846,8 +846,8 @@ TEST(Rays, Intersect)
   CHECK_EQUAL(2, xs.size());
   DOUBLES_EQUAL(4.0, xs[0].t, 0);
   DOUBLES_EQUAL(6.0, xs[1].t, 0);
-  CHECK(*s == *(xs[0].object));
-  CHECK(*s == *(xs[1].object));
+  CHECK(*s == *((Sphere*)(xs[0].object.get())));
+  CHECK(*s == *((Sphere*)(xs[1].object.get())));
 
   Ray ray2(Point({0,1,-5}), Vector({0,0,1}));
   xs = intersect(s, ray2);

@@ -28,7 +28,7 @@ TEST(Intersection, Intersection)
   Intersection i(3.5, s);
 
   DOUBLES_EQUAL(3.5, i.t, 0);
-  CHECK(*s == *(i.object));
+  CHECK(*s == *((Sphere*)(i.object.get())));
 }
 
 TEST(Intersection, Intersections)
