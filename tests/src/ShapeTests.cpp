@@ -3,6 +3,7 @@
 #include "Shape.h"
 #include "TestShape.h"
 #include "Transformations.h"
+#include "Utils.h"
 
 TEST_GROUP(Shape)
 {
@@ -36,4 +37,22 @@ TEST(Shape, Material)
   m.ambient = 1;
   s.m_material = m;
   CHECK(m == s.m_material);
+}
+
+TEST(Shape, Intersect)
+{
+    // Intersecting a scaled shape with a ray
+    Ray r(Point(0,0,-5), Vector(0,0,1));
+    std::shared_ptr<TestShape> shape = std::make_shared<TestShape>();
+    shape->set_transform(scaling(2,2,2));
+    auto xs = intersect(shape, r);
+
+    CHECK(Point(0,0,-2.5) == shape->m_saved_ray.origin);
+    CHECK(Vector(0,0,0.5) == shape->m_saved_ray.direction);
+
+    // Intersecting a translated shape with a ray
+    shape->m_transform = translation(5,0,0);
+    xs = intersect(shape, r);
+    CHECK(Point(-5,0,-5) == shape->m_saved_ray.origin);
+    CHECK(Vector(0,0,1) == shape->m_saved_ray.direction);
 }

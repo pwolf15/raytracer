@@ -1,13 +1,13 @@
 #ifndef TEST_SHAPE_H
 #define TEST_SHAPE_H
 
+#include "Ray.h"
 #include "Shape.h"
 
-class TestShape : public Shape
+class TestShape : public Shape, public std::enable_shared_from_this<TestShape>
 {
 public:
-    TestShape() {}
-    ~TestShape() {}
+    TestShape(): m_saved_ray(Point(0,0,0), Vector(0,0,0)) {}
 
     void set_transform(Matrix t)
     {
@@ -23,10 +23,12 @@ public:
     {
         std::vector<Intersection> ts;
 
-        SPDLOG_INFO("local_intersect not implemented for TestShape");
+        m_saved_ray = r;
 
         return ts;
     }
+
+    Ray m_saved_ray;
 
 };
 

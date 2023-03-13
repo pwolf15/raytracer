@@ -47,8 +47,8 @@ inline static Computations prepare_computations(Intersection intersection, Ray r
 inline static std::vector<Intersection> intersect(std::shared_ptr<Shape> s, Ray r)
 {
     Matrix inv = s->m_transform.inverse();
-    Ray ray2 = r.transform(inv);
-    return s->local_intersect(ray2);
+    Ray local_ray = r.transform(inv);
+    return s->local_intersect(local_ray);
 }
 
 inline static std::vector<Intersection> intersect_world(World w, Ray r)
