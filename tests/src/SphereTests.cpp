@@ -18,13 +18,18 @@ TEST(Spheres, Intersect)
   Ray r(Point(0,0,-5), Vector(0,0,1));
   std::shared_ptr<Sphere> s = std::make_shared<Sphere>();
   s->set_transform(scaling(2,2,2));
-  std::vector<Intersection> xs = intersect(s, r);
+
+  Matrix inv = s->m_transform.inverse();
+  Ray local_ray = r.transform(inv);
+  std::vector<Intersection> xs = s->local_intersect(local_ray);
   CHECK_EQUAL(2, xs.size());
   DOUBLES_EQUAL(3, xs[0].t, 0);
   DOUBLES_EQUAL(7, xs[1].t, 0);
 
   s->set_transform(translation(5,0,0));
-  xs = intersect(s, r);
+  inv = s->m_transform.inverse();
+  local_ray = r.transform(inv);
+  xs = s->local_intersect(local_ray);
   CHECK_EQUAL(0, xs.size());
 }
 
