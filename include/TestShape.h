@@ -16,7 +16,7 @@ public:
 
     Vector normal_at(Point pos)
     {
-        return Vector(0, 0, 0);
+        return Vector(pos.x, pos.y, pos.z);
     }
 
     std::vector<Intersection> local_intersect(const Ray& r)

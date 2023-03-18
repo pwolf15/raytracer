@@ -3,6 +3,7 @@
 #include "Shape.h"
 #include "TestShape.h"
 #include "Transformations.h"
+#include "TestUtils.h"
 #include "Utils.h"
 
 TEST_GROUP(Shape)
@@ -55,4 +56,18 @@ TEST(Shape, Intersect)
     xs = intersect(shape, r);
     CHECK(Point(-5,0,-5) == shape->m_saved_ray.origin);
     CHECK(Vector(0,0,1) == shape->m_saved_ray.direction);
+}
+
+TEST(Shape, NormalAt)
+{
+    // Computing normal on translated shape
+    std::shared_ptr<TestShape> shape = std::make_shared<TestShape>();
+    shape->set_transform(translation(0, 1, 0));
+    Vector n = normal_at(shape, Point(0, 1.70711, -0.70711));
+    CHECK(Vector(0,0.70711,-0.70711) == n);
+
+    // Computing normal on a transformed shape
+    shape->set_transform(scaling(1,0.5,1) * rotation_z(PI/5));
+    n = normal_at(shape, Point(0, sqrt(2)/2, -sqrt(2)/2));
+    CHECK(Vector(0,0.97014,-0.24254) == n);
 }

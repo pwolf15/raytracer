@@ -24,6 +24,16 @@ inline static std::optional<Intersection> hit(std::vector<Intersection>& xs)
     return !xs_copy.empty() ? std::optional<std::reference_wrapper<Intersection>>(xs_copy[0]) : std::nullopt;
 }
 
+inline static Vector normal_at(std::shared_ptr<Shape> shape, Point point)
+{
+    Point local_point = shape->m_transform.inverse() * point;
+    Vector local_normal = shape->normal_at(local_point);
+    Vector world_normal = shape->m_transform.inverse().transpose() * local_normal;
+    world_normal.w = 0;
+
+    return world_normal.normalize();
+}
+
 inline static Computations prepare_computations(Intersection intersection, Ray ray)
 {
     double t = intersection.t;
