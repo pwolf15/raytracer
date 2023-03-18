@@ -8,7 +8,8 @@ Questions
 * Review derivation of ray-sphere intersection code (p.62)
 * Review logic for computing normal (world <-> object space conversion)(p. 82)
 * Sample scene p. 116
-* shared from this?
+* shared from this? 
+* for shapes, need to allocate using shared ptr now that shared_from_this exists. Why?
 
 Minor
 * review intersection logic (see p. 62)

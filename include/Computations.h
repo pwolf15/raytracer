@@ -1,11 +1,10 @@
 #ifndef COMPUTATIONS_H
 #define COMPUTATIONS_H
 
+#include "Constants.h"
 #include "Point.h"
 #include "Shape.h"
 #include "Vector.h"
-
-#define EPSILON 0.00001
 
 class Computations
 {
