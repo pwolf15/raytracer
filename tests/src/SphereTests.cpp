@@ -6,8 +6,6 @@
 #include "Utils.h"
 #include "Vector.h"
 
-#define PI 3.1415926535
-
 TEST_GROUP(Spheres)
 {
 
