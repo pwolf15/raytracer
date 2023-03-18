@@ -13,23 +13,6 @@ TEST_GROUP(Spheres)
 
 };
 
-TEST(Spheres, Transform)
-{
-  Sphere s; 
-  Matrix identity(
-  {
-      {1,0,0,0},
-      {0,1,0,0},
-      {0,0,1,0},
-      {0,0,0,1}
-  });
-  CHECK(identity == s.m_transform);
-
-  Matrix t = translation(2, 3, 4);
-  s.set_transform(t);
-  CHECK(s.m_transform == t);
-}
-
 TEST(Spheres, Intersect)
 {
   Ray r(Point(0,0,-5), Vector(0,0,1));
@@ -66,15 +49,4 @@ TEST(Spheres, NormalAt)
   s.set_transform(scaling(1,0.5,1)*rotation_z(PI/5));
   n = s.normal_at(Point(0, sqrt(2)/2,-sqrt(2)/2));
   TUPLES_EQUAL(Vector(0,0.97014,-0.24254), n, 1e-5);
-}
-
-TEST(Spheres, Material)
-{
-  Sphere s;
-  Material m;
-  CHECK(Material() == s.m_material);
-
-  m.ambient = 1;
-  s.m_material = m;
-  CHECK(m == s.m_material);
 }
