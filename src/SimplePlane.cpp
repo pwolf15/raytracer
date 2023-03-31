@@ -41,7 +41,7 @@ int main()
     world.m_shapes.push_back(std::make_shared<Sphere>(right));  
     world.m_shapes.push_back(std::make_shared<Plane>(floor));
 
-    Camera camera(100,50,PI/3);
+    Camera camera(640,480,PI/3);
     camera.m_transform = view_transform(Point(0,1.5,-5), Point(0,1,0), Vector(0,1,0));
 
     Canvas canvas = render(camera, world);

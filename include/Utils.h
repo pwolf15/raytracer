@@ -10,6 +10,7 @@
 #include "Ray.h"
 #include "TestShape.h"
 #include "World.h"
+#include "Pattern.h"
 
 inline static std::optional<Intersection> hit(std::vector<Intersection>& xs)
 {
@@ -163,6 +164,14 @@ inline static Canvas render(Camera camera, World world)
     }
     
     return image;
+}
+
+inline static Pattern stripe_pattern(Color a, Color b)
+{
+    Pattern p;
+    p.m_a = a;
+    p.m_b = b;
+    return p;
 }
 
 #endif // UTILS_H

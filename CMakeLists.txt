@@ -14,6 +14,7 @@ add_executable(tests
     tests/src/CameraTests.cpp
     tests/src/IntersectionTests.cpp
     tests/src/MaterialsTests.cpp
+    tests/src/PatternTests.cpp
     tests/src/PlaneTests.cpp
     tests/src/ShapeTests.cpp
     tests/src/SphereTests.cpp
