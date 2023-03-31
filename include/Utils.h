@@ -174,4 +174,9 @@ inline static Pattern stripe_pattern(Color a, Color b)
     return p;
 }
 
+inline static Color stripe_at(Pattern pattern, Point point)
+{
+    return (int)(floor(point.x)) % 2 == 0 ? pattern.m_a : pattern.m_b;
+}
+
 #endif // UTILS_H
