@@ -8,6 +8,7 @@
 #include "Point.h"
 #include "PointLight.h"
 #include "TestUtils.h"
+#include "Utils.h"
 #include "Vector.h"
 
 TEST_GROUP(Material)
@@ -70,3 +71,14 @@ TEST(Material, Phong)
   result = lighting(m, light, position, eyev, normalv, in_shadow);
   TUPLES_EQUAL(Color(0.1,0.1,0.1), result);
 } 
+
+TEST(Material, Pattern)
+{
+  Material m;
+  Color white(1,1,1);
+  Color black(0,0,0);
+  m.pattern = stripe_pattern(white, black);
+  m.ambient = 1;
+  m.diffuse = 0;
+  m.specular = 0;
+}

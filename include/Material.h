@@ -2,6 +2,7 @@
 #define MATERIAL_H
 
 #include "Color.h"
+#include "Pattern.h"
 
 class Material 
 {
@@ -28,6 +29,7 @@ public:
     double diffuse;
     double specular;
     double shininess;
+    Pattern pattern;
     
 private:
 };
