@@ -74,6 +74,7 @@ TEST(Material, Phong)
 
 TEST(Material, Pattern)
 {
+  // Lighting with a pattern applied
   Material m;
   Color white(1,1,1);
   Color black(0,0,0);
@@ -81,4 +82,11 @@ TEST(Material, Pattern)
   m.ambient = 1;
   m.diffuse = 0;
   m.specular = 0;
+  Vector eyev(0,0,-1);
+  Vector normalv(0,0,-1);
+  PointLight light(Point(0,0,-10),Color(1,1,1));
+  Color c1 = lighting(m, light, Point(0.9,0,0), eyev, normalv, false);
+  Color c2 = lighting(m, light, Point(1.1,0,0), eyev, normalv, false);
+  CHECK(white == c1);
+  CHECK(black == c2);
 }

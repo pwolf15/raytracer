@@ -12,6 +12,76 @@
 #include "World.h"
 #include "Pattern.h"
 
+inline static Color stripe_at(Pattern pattern, Point point)
+{
+    return (int)(floor(point.x)) % 2 == 0 ? pattern.m_a : pattern.m_b;
+}
+
+inline static bool has_pattern(const Material& mat)
+{
+    return mat.pattern.m_a != mat.pattern.m_b;
+}
+
+static inline Color lighting(Material material, PointLight light, Point point, Vector eyev, Vector normalv, bool in_shadow = false)
+{
+    Color material_color(0,0,0);
+    if (has_pattern(material))
+    {
+        material_color = stripe_at(material.pattern, point);
+    }
+    else
+    {
+        material_color = material.color;
+    }
+    Color effective_color = material_color * light.intensity;
+    // std::cout << "Color: " << material.color << std::endl;
+    // std::cout << "Intensity: " << light.intensity << std::endl;
+    // std::cout << "Effective color: " << effective_color << std::endl;
+    Vector lightv = Vector(light.position - point).normalize();
+
+    Color ambient = effective_color * material.ambient;
+    Color diffuse(0.0, 0.0, 0.0), specular(0.0,0.0,0.0);
+
+    double light_dot_normal = lightv.dot(normalv);
+    if (light_dot_normal < 0)
+    {
+        diffuse = Color(0.0,0.0,0.0);
+        specular = Color(0.0,0.0,0.0);
+    }
+    else
+    {
+        diffuse = effective_color * material.diffuse * light_dot_normal;
+        Vector reflectv = ((Vector)-lightv).reflect(normalv);
+        double reflect_dot_eye = reflectv.dot(eyev);
+        if (reflect_dot_eye <= 0)
+        {
+            specular = Color(0.0,0.0,0.0);
+        }
+        else
+        {
+            double factor = pow(reflect_dot_eye, material.shininess);
+            // std::cout << "reflect_dot_eye: " << reflect_dot_eye << std::endl;
+            // std::cout << "shininess" << material.shininess << std::endl;
+            // std::cout << "Factor: " << factor << std::endl;
+            // std::cout << "Maetiral specular: " << material.specular << std::endl;
+            // std::cout << "Light intesnity: " << light.intensity << std::endl;
+            specular = light.intensity * material.specular * factor;
+        }
+    }
+
+    // std::cout << "Ambient: " << ambient <<std::endl;
+    // std::cout << "Diffuse: " << diffuse << std::endl;
+    // std::cout << "Specular: " << specular << std::endl;
+
+    if (in_shadow)
+    {
+        specular = Color(0, 0, 0);
+        diffuse = Color(0, 0, 0);
+    }
+
+    return ambient + diffuse + specular;
+}
+
 inline static std::optional<Intersection> hit(std::vector<Intersection>& xs)
 {
     std::vector<Intersection> xs_copy;
@@ -172,11 +242,6 @@ inline static Pattern stripe_pattern(Color a, Color b)
     p.m_a = a;
     p.m_b = b;
     return p;
-}
-
-inline static Color stripe_at(Pattern pattern, Point point)
-{
-    return (int)(floor(point.x)) % 2 == 0 ? pattern.m_a : pattern.m_b;
 }
 
 #endif // UTILS_H
