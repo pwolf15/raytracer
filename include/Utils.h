@@ -17,6 +17,14 @@ inline static Color stripe_at(Pattern pattern, Point point)
     return (int)(floor(point.x)) % 2 == 0 ? pattern.m_a : pattern.m_b;
 }
 
+inline static Color stripe_at_object(Pattern pattern, std::shared_ptr<Shape> shape, Point world_point)
+{
+    Point object_point = shape->m_transform.inverse() * world_point;
+    Point pattern_point = pattern.m_transform.inverse() * object_point;
+
+    return stripe_at(pattern, pattern_point);
+}
+
 inline static bool has_pattern(const Material& mat)
 {
     return mat.pattern.m_a != mat.pattern.m_b;
